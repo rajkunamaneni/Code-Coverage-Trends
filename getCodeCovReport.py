@@ -2,25 +2,13 @@ from collections import defaultdict
 import json
 import requests
 
-CODECOV_ENDPOINT = "https://codecov.io/api/v2/github/codecov/{}"
-TOKEN_NAME = "{{ ACCESS TOKEN }}"
+CODECOV_ENDPOINT = "https://codecov.io/api/v2/{}/{}"
+TOKEN_NAME = ""
 CODECOV_HEADERS = {
     'Authorization': 'bearer {}'.format(TOKEN_NAME)
 }
 
-def _get_all_repos():
-    print('Retrieving all repos...', end=" ")
-    endpoint = CODECOV_ENDPOINT.format('repos?page_size=500')
-    response = requests.get(
-        endpoint,
-        headers=CODECOV_HEADERS,
-    )
-    repos = json.loads(response.content)['results']
-    print("Found {} repositories".format(len(repos)))
-    return sorted(repo['name'] for repo in repos)
-
-def _display_coverage(repo_name):
-    endpoint = CODECOV_ENDPOINT.format("repos/{}/commits".format(repo_name))
+def _display_coverage(endpoint):
     response = requests.get(
         endpoint,
         headers=CODECOV_HEADERS,
@@ -29,7 +17,6 @@ def _display_coverage(repo_name):
     commit = None
     if content['count'] == 0:
         return
-    print(repo_name, end=" ")
 
     for commit in content['results']:
         totals = commit['totals']
@@ -43,10 +30,14 @@ def _display_coverage(repo_name):
 
     print('No coverage found on any commit')
 
-def display_coverage_dashboard():
-    repos = _get_all_repos()
-    for repo in repos:
-        _display_coverage(repo)
+def display_coverage_dashboard(platform, username, repo_name):
+    global CODECOV_ENDPOINT
+    endpoint = CODECOV_ENDPOINT.format(platform, username)
+    endpoint = endpoint + "/repos/" + repo_name + "/commits"
+    _display_coverage(endpoint)
 
 if __name__=="__main__":
-    display_coverage_dashboard()
+    platform = 'github'
+    username = 'codecov'
+    repo_name = 'codecov-ats'
+    display_coverage_dashboard(platform, username, repo_name)
