@@ -30,10 +30,13 @@ def _display_codecov(platform, username, repo_name):
 
             coverage = totals.get('coverage', None)
             if coverage is not None:
-                print('{}%'.format(coverage))
+                print(f"codecov: {username}/{repo_name}: {coverage}%")
+                return
+            else:
+                print(f"codecov not used: {username}/{repo_name}")
                 return
 
-    print('No coverage found on any commit')
+    print(f"codecov not used: {username}/{repo_name}")
 
 def _display_coverall(platform, username, repo_name):
     coverall_endpoint = "https://coveralls.io/github/{}/{}.json"
@@ -42,9 +45,9 @@ def _display_coverall(platform, username, repo_name):
         with urllib.request.urlopen(coverall_endpoint) as url:
             data = json.load(url)
             if data is not None:
-                print(data['covered_percent'])
+                print(f"coverall: {username}/{repo_name}: {data['covered_percent']}%")
     except urllib.error.HTTPError as e:
-        print("repo does not use coverall")
+        print(f"coverall not used: {username}/{repo_name}")
 
 def display_coverage_dashboard(platform, username, repo_name):
     _display_codecov(platform, username, repo_name)
@@ -53,10 +56,10 @@ def display_coverage_dashboard(platform, username, repo_name):
 
 if __name__=="__main__":
     platform = 'github'
-    # read csv
     data = pd.read_csv('github-ranking-2024-02-15.csv')
     data_dict = data.to_dict(orient='records')
     data_dict = [item for item in data_dict if item['language'] == 'JavaScript' or item['language'] == 'TypeScript']
+
     for item in data_dict:
         username = item['username']
         repo_name = item['repo_name']
