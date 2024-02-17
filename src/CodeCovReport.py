@@ -4,12 +4,16 @@ import requests
 import urllib
 import urllib.request, json
 import pandas as pd
+import argparse
 
 def _display_codecov(platform, username, repo_name):
     CODECOV_ENDPOINT = "https://codecov.io/api/v2/{}/{}"
-    TOKEN_NAME = "token-id"
+    parser = argparse.ArgumentParser("codecov_enpoint")
+    parser.add_argument("token_name", help="Token for codecov API.", type=str)
+    args = parser.parse_args()
+    token_name = args.token_name
     CODECOV_HEADERS = {
-        'Authorization': 'bearer {}'.format(TOKEN_NAME)
+        'Authorization': 'bearer {}'.format(token_name)
     }
     endpoint = CODECOV_ENDPOINT.format(platform, username)
     endpoint = endpoint + "/repos/" + repo_name + "/commits"
@@ -17,7 +21,6 @@ def _display_codecov(platform, username, repo_name):
         endpoint,
         headers=CODECOV_HEADERS,
     )
-
     content = json.loads(response.content)
     if response.status_code == 200:
         commit = None
