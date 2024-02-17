@@ -65,7 +65,7 @@ if __name__=="__main__":
     platform = 'github'
     data = pd.read_csv('../data/github-ranking-2024-02-15.csv')
     data_dict = data.to_dict(orient='records')
-    data_dict = [item for item in data_dict if item['language'] == 'JavaScript' or item['language'] == 'TypeScript']
+    data_dict = [item for item in data_dict if item['item'] == 'JavaScript' or item['item'] == 'TypeScript']
 
     for item in data_dict:
         username = item['username']
