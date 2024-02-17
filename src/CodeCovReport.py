@@ -17,11 +17,12 @@ def _display_codecov(platform, username, repo_name):
         endpoint,
         headers=CODECOV_HEADERS,
     )
+
     content = json.loads(response.content)
     if response.status_code == 200:
         commit = None
         if content['count'] == 0:
-            return
+            return False
 
         for commit in content['results']:
             totals = commit['totals']
@@ -31,12 +32,13 @@ def _display_codecov(platform, username, repo_name):
             coverage = totals.get('coverage', None)
             if coverage is not None:
                 print(f"codecov: {username}/{repo_name}: {coverage}%")
-                return
+                return True
             else:
                 print(f"codecov not used: {username}/{repo_name}")
-                return
+                return False
 
-    print(f"codecov not used: {username}/{repo_name}")
+    #print(f"codecov not used: {username}/{repo_name}")
+    return False
 
 def _display_coverall(platform, username, repo_name):
     coverall_endpoint = "https://coveralls.io/github/{}/{}.json"
@@ -46,8 +48,10 @@ def _display_coverall(platform, username, repo_name):
             data = json.load(url)
             if data is not None:
                 print(f"coverall: {username}/{repo_name}: {data['covered_percent']}%")
+                return True
     except urllib.error.HTTPError as e:
-        print(f"coverall not used: {username}/{repo_name}")
+        #print(f"coverall not used: {username}/{repo_name}")
+        return False
 
 def display_coverage_dashboard(platform, username, repo_name):
     _display_codecov(platform, username, repo_name)
