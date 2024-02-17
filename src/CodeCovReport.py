@@ -7,7 +7,7 @@ import pandas as pd
 
 def _display_codecov(platform, username, repo_name):
     CODECOV_ENDPOINT = "https://codecov.io/api/v2/{}/{}"
-    TOKEN_NAME = "7848dd6f-5308-43f6-a02f-e10e31118854"
+    TOKEN_NAME = "token-id"
     CODECOV_HEADERS = {
         'Authorization': 'bearer {}'.format(TOKEN_NAME)
     }
@@ -56,7 +56,7 @@ def display_coverage_dashboard(platform, username, repo_name):
 
 if __name__=="__main__":
     platform = 'github'
-    data = pd.read_csv('github-ranking-2024-02-15.csv')
+    data = pd.read_csv('../data/github-ranking-2024-02-15.csv')
     data_dict = data.to_dict(orient='records')
     data_dict = [item for item in data_dict if item['language'] == 'JavaScript' or item['language'] == 'TypeScript']
 
