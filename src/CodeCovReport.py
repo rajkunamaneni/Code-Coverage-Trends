@@ -28,7 +28,6 @@ def __print_codecov_commits(content):
 
 def __print_codecov_commit_build(content, sha_value):
     commit = None
-    print(content['results'])
 
     for commit in content['results']:
         totals = commit['totals']
@@ -38,7 +37,6 @@ def __print_codecov_commit_build(content, sha_value):
 
         coverage = totals.get('coverage', None)
 
-        print(f"{commit['commitid']} ==> {sha_value}")
         if coverage is not None and commit['commitid'] == sha_value:
             print(f"codecov, {username}/{repo_name}, {coverage}%, {commit['commitid']}, {commit['timestamp']}")
             return True
@@ -145,7 +143,7 @@ def _display_codecov_build(platform, username, repo_name, token_name, sha_value)
         headers=CODECOV_HEADERS,
     )
     content = json.loads(response.text)
-
+    print(endpoint)
     if __print_codecov_commit_build(content, sha_value):
         return True
 
@@ -160,7 +158,7 @@ def _display_codecov_build(platform, username, repo_name, token_name, sha_value)
         while next_page_url is not None:
             print(next_page_url)
             if __print_codecov_commit_build(content, sha_value):
-                break
+                return True
             response = requests.get(
                 next_page_url,
                 headers=CODECOV_HEADERS,
