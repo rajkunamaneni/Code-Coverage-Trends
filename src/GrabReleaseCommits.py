@@ -9,7 +9,7 @@ def retrieve_commit_hashes(username, repo_name):
         repo_name (str): The name of the repository on GitHub.
 
     Returns:
-        list: A list of tuples containing the repository URL, commit hash, and commit date.
+        list: A list of list containing the commit hash and commit date.
     """
     repo_url = f'https://github.com/{username}/{repo_name}'
     print(f'Repository URL: {repo_url}')

@@ -13,5 +13,5 @@ data/: Houses information pertaining to Popular Repositories.
 
 ```bash
 git clone https://github.com/rajkunamaneni/Code-Coverage-Trends.git
-cd code/
+cd src/
 ```
