@@ -7,6 +7,7 @@ import pandas as pd
 import sys
 from GrabReleaseCommits import retrieve_commit_hashes
 from StarHistory import get_repo_data
+from GetRepoFromDataset import filter_github_repos
 
 # Helper functions for codecov printing of each commit info and their resulting code coverage
 def __print_codecov_commits(content):
@@ -275,49 +276,50 @@ def _display_coverall_all_builds(platform, username, repo_name):
 if __name__=="__main__":
     #print(retrieve_commit_hashes('expressjs', 'express'))
     #print(get_repo_data('expressjs', 'express', ["06-03-2015", "16-01-2024", "15-02-2024", "17-02-2024"]))
-    try:
-        codecov_API_token = sys.argv[1]
-        platform = sys.argv[2]
-        username = sys.argv[3]
-        repo_name = sys.argv[4]
-        sha_value = sys.argv[5]
-        function_option = sys.argv[6]
+    print(filter_github_repos('../data/github-ranking-2024-02-15.csv'))
+    # try:
+    #     codecov_API_token = sys.argv[1]
+    #     platform = sys.argv[2]
+    #     username = sys.argv[3]
+    #     repo_name = sys.argv[4]
+    #     sha_value = sys.argv[5]
+    #     function_option = sys.argv[6]
 
-        if function_option == "1":
-            print("**********************************_display_codecov_first_page**********************************")
-            _display_codecov_first_page(platform, username, repo_name, codecov_API_token)
-        elif function_option == "2":
-            print("**********************************_display_codecov_all_builds**********************************")
-            _display_codecov_all_builds(platform, username, repo_name, codecov_API_token)
-        elif function_option == "3":
-            print("**********************************_display_codecov_build**********************************")
-            _display_codecov_build(platform, username, repo_name, codecov_API_token, sha_value)
-        elif function_option == "4":
-            print("**********************************_display_coverall**********************************")
-            _display_coverall(platform, username, repo_name)
-        elif function_option == "5":
-            print("**********************************_display_coverall_ten_builds**********************************")
-            _display_coverall_ten_builds(platform, username, repo_name)
-        elif function_option == "6":
-            print("**********************************_display_coverall_all_builds**********************************")
-            _display_coverall_all_builds(platform, username, repo_name)
-        elif function_option == "7":
-            print("**********************************_display_coverall_build**********************************")
-            _display_coverall_build(platform, username, repo_name, sha_value)
-        else:
-            print(f"Invalid option: {repr(function_option)}")
+    #     if function_option == "1":
+    #         print("**********************************_display_codecov_first_page**********************************")
+    #         _display_codecov_first_page(platform, username, repo_name, codecov_API_token)
+    #     elif function_option == "2":
+    #         print("**********************************_display_codecov_all_builds**********************************")
+    #         _display_codecov_all_builds(platform, username, repo_name, codecov_API_token)
+    #     elif function_option == "3":
+    #         print("**********************************_display_codecov_build**********************************")
+    #         _display_codecov_build(platform, username, repo_name, codecov_API_token, sha_value)
+    #     elif function_option == "4":
+    #         print("**********************************_display_coverall**********************************")
+    #         _display_coverall(platform, username, repo_name)
+    #     elif function_option == "5":
+    #         print("**********************************_display_coverall_ten_builds**********************************")
+    #         _display_coverall_ten_builds(platform, username, repo_name)
+    #     elif function_option == "6":
+    #         print("**********************************_display_coverall_all_builds**********************************")
+    #         _display_coverall_all_builds(platform, username, repo_name)
+    #     elif function_option == "7":
+    #         print("**********************************_display_coverall_build**********************************")
+    #         _display_coverall_build(platform, username, repo_name, sha_value)
+    #     else:
+    #         print(f"Invalid option: {repr(function_option)}")
 
-    except IndexError:
-        print("{} codecov_API_token platform username repo_name sha_value function_option".format(sys.argv[0]))
+    # except IndexError:
+    #     print("{} codecov_API_token platform username repo_name sha_value function_option".format(sys.argv[0]))
 
-        # print("For function_option:")
-        # print("1 ---> _display_codecov() for most recent commit code coverage")
-        # print("2 ---> _display_coverall() for most recent commit code coverage")
-        # print("3 ---> _display_coverall_ten_builds() for latest 10 commits of a repo")
-        # print("4 ---> _display_coverall_all_builds() for all commits of a repo. "
-        #       "WARNING: This might take long time to run.")
-        # print("5 ---> _display_coverall_build() for coverage report based on a commit's sha hash value")
+    #     # print("For function_option:")
+    #     # print("1 ---> _display_codecov() for most recent commit code coverage")
+    #     # print("2 ---> _display_coverall() for most recent commit code coverage")
+    #     # print("3 ---> _display_coverall_ten_builds() for latest 10 commits of a repo")
+    #     # print("4 ---> _display_coverall_all_builds() for all commits of a repo. "
+    #     #       "WARNING: This might take long time to run.")
+    #     # print("5 ---> _display_coverall_build() for coverage report based on a commit's sha hash value")
 
-        print("Usage example: CodeCovReport.py 12345678-90ab-cdef-1234-567890abcdef github rajkunamaneni "
-              "Code-Coverage-Trends bc5eef62d759fbfc8c2b55da75b4740703856c7c 6")
-        sys.exit(1)
+    #     print("Usage example: CodeCovReport.py 12345678-90ab-cdef-1234-567890abcdef github rajkunamaneni "
+    #           "Code-Coverage-Trends bc5eef62d759fbfc8c2b55da75b4740703856c7c 6")
+    #     sys.exit(1)

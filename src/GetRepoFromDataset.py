@@ -16,11 +16,15 @@ def filter_github_repos(csv_file_path):
     # Convert DataFrame to a list of dictionaries
     data_dict = data.to_dict(orient='records')
 
-    # Filter out repositories with specified languages
-    languages_to_exclude = ['CSS', 'HTML', 'R', 'PHP', 'PowerShell', 'MATLAB', 'Perl', 'Shell', 'TeX', 'Vim Script']
-    data_dict = [item for item in data_dict if item['language'] and item['language'] not in languages_to_exclude]
+    # Filter out repositories with specified languages and non-empty domain
+    languages_to_exclude = ['Dockerfile', 'CSS', 'HTML', 'R', 'PHP', 'PowerShell', 'MATLAB', 'Perl', 'Shell', 'TeX', 'Vim Script']
+    data_dict = [
+        item for item in data_dict 
+        if item['language'] and item['language'] not in languages_to_exclude 
+        and not pd.isnull(item['language'])
+    ]
 
-    # Extract username and repository name, and store in a list
+    # Extract username, repository name, and domain, and store in a list
     list_of_repos = []
     for item in data_dict:
         username = item['username']
@@ -28,6 +32,7 @@ def filter_github_repos(csv_file_path):
         domain = item['language']
         list_of_repos.append([username, repo_name, domain])
 
+    # Manually append additional repositories
     additional_repos = [
         ['rmanguinho', 'clean-ts-api', 'TypeScript'],
         ['alexjoverm', 'typescript-library-starter', 'TypeScript'],
@@ -48,8 +53,3 @@ if __name__ == "__main__":
     for repo in github_repos:
         print(f"{repo[0]}/{repo[1]}, {repo[2]}")
     # Example of output: pnpm/pnpm, TypeScript
-
-
-
-
-
