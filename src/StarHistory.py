@@ -6,8 +6,10 @@ def get_repo_data(username, repo_name, dates):
     https://emanuelef.github.io/daily-stars-explorer/
     
     Args:
+    - username (str): The username or organization name on GitHub.
     - repo_name (str): The name of the repository in the format "owner/repository".
-
+    - dates (list): A list of dates in the format "dd-mm-yyyy" for which to fetch the star count.
+    
     Returns:
     - list or None: A list containing data for the repository if the request was successful, 
       otherwise returns None.
