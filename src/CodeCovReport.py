@@ -29,6 +29,7 @@ def __print_codecov_commits(content):
 def __print_codecov_commit_build(content, sha_value):
     commit = None
     print(content['results'])
+
     for commit in content['results']:
         totals = commit['totals']
 
@@ -36,6 +37,7 @@ def __print_codecov_commit_build(content, sha_value):
             continue
 
         coverage = totals.get('coverage', None)
+
         print(f"{commit['commitid']} ==> {sha_value}")
         if coverage is not None and commit['commitid'] == sha_value:
             print(f"codecov, {username}/{repo_name}, {coverage}%, {commit['commitid']}, {commit['timestamp']}")
@@ -44,7 +46,9 @@ def __print_codecov_commit_build(content, sha_value):
             print(f"codecov not used: {username}/{repo_name}, {commit['commitid']}, {commit['timestamp']}")
             return False
         else:
-            return False
+            continue
+
+    return False
 
 def _display_codecov_first_page(platform, username, repo_name, token_name):
     if token_name is None or token_name == "" or token_name == " ":
@@ -141,6 +145,10 @@ def _display_codecov_build(platform, username, repo_name, token_name, sha_value)
         headers=CODECOV_HEADERS,
     )
     content = json.loads(response.text)
+
+    if __print_codecov_commit_build(content, sha_value):
+        return True
+
     if response.status_code == 200:
         commit = None
         if content['count'] == 0:
