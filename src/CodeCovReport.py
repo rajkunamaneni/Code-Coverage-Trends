@@ -163,7 +163,7 @@ if __name__=="__main__":
     #     username = item['username']
     #     repo_name = item['repo_name']
 
-    #print(retrieve_commit_hashes('username', 'repo_name'))
+    print(retrieve_commit_hashes('expressjs', 'express'))
     try:
         codecov_API_token = sys.argv[1]
         platform = sys.argv[2]
