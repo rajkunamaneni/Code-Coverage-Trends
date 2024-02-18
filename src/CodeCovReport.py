@@ -26,6 +26,7 @@ def __print_codecov_commits(content):
 
 def __print_codecov_commit_build(content, sha_value):
     commit = None
+    print(content['results'])
     for commit in content['results']:
         totals = commit['totals']
 
@@ -33,6 +34,7 @@ def __print_codecov_commit_build(content, sha_value):
             continue
 
         coverage = totals.get('coverage', None)
+        print(f"{commit['commitid']} ==> {sha_value}")
         if coverage is not None and commit['commitid'] == sha_value:
             print(f"codecov, {username}/{repo_name}, {coverage}%, {commit['commitid']}, {commit['timestamp']}")
             return True
@@ -84,16 +86,16 @@ def _display_codecov_all_builds(platform, username, repo_name, token_name):
         'Authorization': 'bearer {}'.format(token_name)
     }
     endpoint = CODECOV_ENDPOINT.format(platform, username, repo_name)
+    print(endpoint)
     response = requests.get(
         endpoint,
         headers=CODECOV_HEADERS,
     )
-    print(response)
     content = json.loads(response.text)
+    __print_codecov_commits(content)
 
     if response.status_code == 200:
         commit = None
-        print(content)
         if content['count'] == 0:
             print("Repo did implement codecov but did not use it to generate code coverage reports.")
             return False
@@ -101,6 +103,7 @@ def _display_codecov_all_builds(platform, username, repo_name, token_name):
         next_page_url = content['next']
 
         while next_page_url is not None:
+            print(next_page_url)
             __print_codecov_commits(content)
 
             response = requests.get(
@@ -130,12 +133,12 @@ def _display_codecov_build(platform, username, repo_name, token_name, sha_value)
         'Authorization': 'bearer {}'.format(token_name)
     }
     endpoint = CODECOV_ENDPOINT.format(platform, username, repo_name)
+
     response = requests.get(
         endpoint,
         headers=CODECOV_HEADERS,
     )
     content = json.loads(response.text)
-
     if response.status_code == 200:
         commit = None
         if content['count'] == 0:
@@ -145,6 +148,7 @@ def _display_codecov_build(platform, username, repo_name, token_name, sha_value)
         next_page_url = content['next']
 
         while next_page_url is not None:
+            print(next_page_url)
             if __print_codecov_commit_build(content, sha_value):
                 break
             response = requests.get(
