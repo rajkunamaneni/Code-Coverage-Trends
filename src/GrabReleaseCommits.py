@@ -22,3 +22,10 @@ def retrieve_commit_hashes(username, repo_name):
     print(f'Total Release Tags: {len(commits_info)}')
 
     return commits_info
+
+if __name__ == "__main__":
+    username = 'facebook'
+    repo_name = 'react'
+    commit_hashes = retrieve_commit_hashes(username, repo_name)
+    for i in commit_hashes:
+        print(i)
