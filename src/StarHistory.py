@@ -1,19 +1,21 @@
 import requests
 
-def get_repo_data(repo_name, dates):
+def get_star_data(username, repo_name, dates):
     """
     Fetches data for a given repository from the Daily Stars Explorer API.
     https://emanuelef.github.io/daily-stars-explorer/
     
     Args:
+    - username (str): The username or organization name on GitHub.
     - repo_name (str): The name of the repository in the format "owner/repository".
-
+    - dates (list): A list of dates in the format "dd-mm-yyyy" for which to fetch the star count.
+    
     Returns:
     - list or None: A list containing data for the repository if the request was successful, 
       otherwise returns None.
 
     Example:
-    >>> get_repo_data("flutter/flutter")
+    >>> get_repo_data("flutter", "flutter", ["16-01-2024", "15-02-2024"])
     [['06-03-2015', 0], ['07-03-2015', 0], ['08-03-2015', 0], ...]
     """
     # Define the base URL
@@ -25,7 +27,7 @@ def get_repo_data(repo_name, dates):
     }
 
     # Define the parameters
-    params = {"repo": repo_name}
+    params = {"repo": f"{username}/{repo_name}"}
 
     # Make the GET request with certificate verification
     response = requests.get(base_url, params=params, headers=headers, verify=True)
@@ -34,12 +36,14 @@ def get_repo_data(repo_name, dates):
     if response.status_code == 200:
         # Extract the JSON response
         data = response.json()
+        # print(data)
         result = []
-        for item in data:
+        for item in data['stars']:
             if item[0] in dates:
                 # Append only the date and the star count
                 result.append([item[0], item[2]])
         return result
+        
     else:
         # Print an error message if the request was unsuccessful
         print(f"Error fetching data for repository {repo_name}: {response.status_code}")
@@ -47,12 +51,13 @@ def get_repo_data(repo_name, dates):
 
 if __name__ == "__main__":
     # Example usage
-    repository_names = ["flutter/flutter", "tensorflow/tensorflow", "facebook/react"]
+    repository_names = [["flutter", "flutter"], ["tensorflow", "tensorflow"], ["facebook", "react"]]
     dates = ["06-03-2015", "16-01-2024", "15-02-2024", "17-02-2024"]
 
     for repo_name in repository_names:
-        print(f"Fetching data for repository: {repo_name} (GitHub link: https://github.com/{repo_name})")
-        data = get_repo_data(repo_name, dates)
+        repo = f"{repo_name[0]}/{repo_name[1]}" #username/repo_name path
+        print(f"Fetching data for repository: {repo} (GitHub link: https://github.com/{repo})")
+        data = get_star_data(repo_name[0], repo_name[1], dates)
         if data:
             print(data)
         print()

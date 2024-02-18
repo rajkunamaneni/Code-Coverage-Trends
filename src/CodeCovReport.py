@@ -6,6 +6,8 @@ import urllib.request, json
 import pandas as pd
 import sys
 from GrabReleaseCommits import retrieve_commit_hashes
+from StarHistory import get_star_data
+from GetRepoFromDataset import filter_github_repos
 
 # Helper functions for codecov printing of each commit info and their resulting code coverage
 def __print_codecov_commits(content):
@@ -277,6 +279,8 @@ def _display_coverall_all_builds(platform, username, repo_name):
 
 if __name__=="__main__":
     #print(retrieve_commit_hashes('expressjs', 'express'))
+    #print(get_star_data('expressjs', 'express', ["06-03-2015", "16-01-2024", "15-02-2024", "17-02-2024"]))
+    #print(filter_github_repos('../data/github-ranking-2024-02-15.csv'))
     try:
         codecov_API_token = sys.argv[1]
         platform = sys.argv[2]
