@@ -22,10 +22,3 @@ def retrieve_commit_hashes(username, repo_name):
     print(f'Total Release Tags: {len(commits_info)}')
 
     return commits_info
-
-# Example usage:
-username = 'flutter'
-repo_name = 'flutter'
-commit_hashes = retrieve_commit_hashes(username, repo_name)
-for i in commit_hashes:
-    print(i)
