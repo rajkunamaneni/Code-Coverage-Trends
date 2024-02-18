@@ -5,6 +5,8 @@ import urllib
 import urllib.request, json
 import pandas as pd
 import sys
+from GrabReleaseCommits import retrieve_commit_hashes
+
 
 def _display_codecov(platform, username, repo_name, token_name):
     if token_name is None or token_name == "" or token_name == " ":
@@ -162,6 +164,7 @@ if __name__=="__main__":
     #     username = item['username']
     #     repo_name = item['repo_name']
 
+    #print(retrieve_commit_hashes('username', 'repo_name'))
     try:
         codecov_API_token = sys.argv[1]
         platform = sys.argv[2]

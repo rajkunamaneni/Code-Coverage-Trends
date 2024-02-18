@@ -48,7 +48,7 @@ def get_repo_data(repo_name, dates):
 if __name__ == "__main__":
     # Example usage
     repository_names = ["flutter/flutter", "tensorflow/tensorflow", "facebook/react"]
-    dates = ["06-03-2015", "16-01-2024", "15-02-2024", "16-02-2024"]
+    dates = ["06-03-2015", "16-01-2024", "15-02-2024", "17-02-2024"]
 
     for repo_name in repository_names:
         print(f"Fetching data for repository: {repo_name} (GitHub link: https://github.com/{repo_name})")
