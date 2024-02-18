@@ -7,6 +7,10 @@ import pandas as pd
 import sys
 
 def _display_codecov(platform, username, repo_name, token_name):
+    if token_name is None or token_name == "" or token_name == " ":
+        print("invalid token: {}".format(token_name))
+        return False
+
     CODECOV_ENDPOINT = "https://codecov.io/api/v2/{}/{}"
 
     CODECOV_HEADERS = {
@@ -23,6 +27,7 @@ def _display_codecov(platform, username, repo_name, token_name):
     if response.status_code == 200:
         commit = None
         if content['count'] == 0:
+            print("Repo did implement codecov but did not use it to generate code coverage reports.")
             return False
 
         for commit in content['results']:
@@ -37,6 +42,9 @@ def _display_codecov(platform, username, repo_name, token_name):
             else:
                 print(f"codecov not used: {username}/{repo_name}")
                 return False
+    else:
+        print("codecov returned with error status:".format(response.status_code))
+        return False
 
     print(f"codecov not used: {username}/{repo_name}")
     return False
