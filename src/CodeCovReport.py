@@ -1,13 +1,25 @@
-from collections import defaultdict
 import json
 import requests
 import urllib
 import urllib.request, json
 import pandas as pd
 import sys
+import os
+
+from collections import defaultdict
 from GrabReleaseCommits import retrieve_commit_hashes
 from StarHistory import get_star_data
 from GetRepoFromDataset import filter_github_repos
+
+# Helper class for turning print output off temporarily.
+class disablePrintOutput:
+    def __enter__(self):
+        self._original_stdout = sys.stdout
+        sys.stdout = open(os.devnull, 'w')
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        sys.stdout.close()
+        sys.stdout = self._original_stdout
 
 # Helper functions for codecov printing of each commit info and their resulting code coverage
 def __print_codecov_commits(content):
@@ -53,16 +65,16 @@ def _display_codecov_first_page(platform, username, repo_name, token_name):
         print("invalid token: {}".format(token_name))
         return False
 
-    CODECOV_ENDPOINT = "https://codecov.io/api/v2/{}/{}"
+    codecov_endpoint = "https://codecov.io/api/v2/{}/{}"
 
-    CODECOV_HEADERS = {
+    codecov_headers = {
         'Authorization': 'bearer {}'.format(token_name)
     }
-    endpoint = CODECOV_ENDPOINT.format(platform, username)
+    endpoint = codecov_endpoint.format(platform, username)
     endpoint = endpoint + "/repos/" + repo_name + "/commits"
     response = requests.get(
         endpoint,
-        headers=CODECOV_HEADERS,
+        headers=codecov_headers,
     )
     content = json.loads(response.content)
 
@@ -84,16 +96,16 @@ def _display_codecov_all_builds(platform, username, repo_name, token_name):
         return False
 
     #https://api.codecov.io/api/v2/{service}/{owner_username}/repos/{repo_name}/commits/
-    CODECOV_ENDPOINT = "https://api.codecov.io/api/v2/{}/{}/repos/{}/commits/"
+    codecov_endpoint = "https://api.codecov.io/api/v2/{}/{}/repos/{}/commits/"
 
-    CODECOV_HEADERS = {
+    codecov_headers = {
         'Authorization': 'bearer {}'.format(token_name)
     }
-    endpoint = CODECOV_ENDPOINT.format(platform, username, repo_name)
+    endpoint = codecov_endpoint.format(platform, username, repo_name)
     print(endpoint)
     response = requests.get(
         endpoint,
-        headers=CODECOV_HEADERS,
+        headers=codecov_headers,
     )
     content = json.loads(response.text)
     __print_codecov_commits(content)
@@ -112,7 +124,7 @@ def _display_codecov_all_builds(platform, username, repo_name, token_name):
 
             response = requests.get(
                 next_page_url,
-                headers=CODECOV_HEADERS,
+                headers=codecov_headers,
             )
             content = json.loads(response.text)
             next_page_url = content['next']
@@ -131,16 +143,16 @@ def _display_codecov_build(platform, username, repo_name, token_name, sha_value)
         return False
 
     #https://api.codecov.io/api/v2/{service}/{owner_username}/repos/{repo_name}/commits/
-    CODECOV_ENDPOINT = "https://api.codecov.io/api/v2/{}/{}/repos/{}/commits/"
+    codecov_endpoint = "https://api.codecov.io/api/v2/{}/{}/repos/{}/commits/"
 
-    CODECOV_HEADERS = {
+    codecov_headers = {
         'Authorization': 'bearer {}'.format(token_name)
     }
-    endpoint = CODECOV_ENDPOINT.format(platform, username, repo_name)
+    endpoint = codecov_endpoint.format(platform, username, repo_name)
 
     response = requests.get(
         endpoint,
-        headers=CODECOV_HEADERS,
+        headers=codecov_headers,
     )
     content = json.loads(response.text)
     print(endpoint)
@@ -161,7 +173,7 @@ def _display_codecov_build(platform, username, repo_name, token_name, sha_value)
                 return True
             response = requests.get(
                 next_page_url,
-                headers=CODECOV_HEADERS,
+                headers=codecov_headers,
             )
             content = json.loads(response.text)
             next_page_url = content['next']
@@ -282,6 +294,13 @@ def _display_coverall_all_builds(platform, username, repo_name):
         print(f"coverall not used: {username}/{repo_name}")
         return False
 
+def _detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token):
+    with disablePrintOutput():
+        codecov_used = _display_codecov_first_page(platform, username, repo_name, codecov_API_token)
+        coverall_used = _display_coverall(platform, username, repo_name)
+
+    if codecov_used or coverall_used:
+        print(f"{platform}, {username}, {repo_name}, {codecov_used}, {coverall_used}")
 
 if __name__=="__main__":
     #print(retrieve_commit_hashes('expressjs', 'express'))
@@ -316,20 +335,15 @@ if __name__=="__main__":
         elif function_option == "7":
             print("**********************************_display_coverall_build**********************************")
             _display_coverall_build(platform, username, repo_name, sha_value)
+        elif function_option == "8":
+            print("**********************************_detect_coverage_tool_usage**********************************")
+            _detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token)
         else:
             print(f"Invalid option: {repr(function_option)}")
 
     except IndexError:
         print("{} codecov_API_token platform username repo_name sha_value function_option".format(sys.argv[0]))
-
-        # print("For function_option:")
-        # print("1 ---> _display_codecov() for most recent commit code coverage")
-        # print("2 ---> _display_coverall() for most recent commit code coverage")
-        # print("3 ---> _display_coverall_ten_builds() for latest 10 commits of a repo")
-        # print("4 ---> _display_coverall_all_builds() for all commits of a repo. "
-        #       "WARNING: This might take long time to run.")
-        # print("5 ---> _display_coverall_build() for coverage report based on a commit's sha hash value")
-
         print("Usage example: CodeCovReport.py 12345678-90ab-cdef-1234-567890abcdef github rajkunamaneni "
               "Code-Coverage-Trends bc5eef62d759fbfc8c2b55da75b4740703856c7c 6")
+
         sys.exit(1)
