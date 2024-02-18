@@ -294,13 +294,13 @@ def _display_coverall_all_builds(platform, username, repo_name):
         print(f"coverall not used: {username}/{repo_name}")
         return False
 
-def _detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token):
+def detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token):
     with disablePrintOutput():
         codecov_used = _display_codecov_first_page(platform, username, repo_name, codecov_API_token)
         coverall_used = _display_coverall(platform, username, repo_name)
 
     if codecov_used or coverall_used:
-        print(f"{platform}, {username}, {repo_name}, {codecov_used}, {coverall_used}")
+        return [platform, username, repo_name, codecov_used, coverall_used]
 
 if __name__=="__main__":
     #print(retrieve_commit_hashes('expressjs', 'express'))
@@ -337,7 +337,7 @@ if __name__=="__main__":
             _display_coverall_build(platform, username, repo_name, sha_value)
         elif function_option == "8":
             print("**********************************_detect_coverage_tool_usage**********************************")
-            _detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token)
+            detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token)
         else:
             print(f"Invalid option: {repr(function_option)}")
 
