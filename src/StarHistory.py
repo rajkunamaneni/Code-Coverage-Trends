@@ -1,6 +1,6 @@
 import requests
 
-def get_repo_data(username, repo_name, dates):
+def get_star_data(username, repo_name, dates):
     """
     Fetches data for a given repository from the Daily Stars Explorer API.
     https://emanuelef.github.io/daily-stars-explorer/
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     for repo_name in repository_names:
         repo = f"{repo_name[0]}/{repo_name[1]}" #username/repo_name path
         print(f"Fetching data for repository: {repo} (GitHub link: https://github.com/{repo})")
-        data = get_repo_data(repo_name[0], repo_name[1], dates)
+        data = get_star_data(repo_name[0], repo_name[1], dates)
         if data:
             print(data)
         print()
