@@ -7,7 +7,6 @@ import pandas as pd
 import sys
 from GrabReleaseCommits import retrieve_commit_hashes
 
-
 def _display_codecov(platform, username, repo_name, token_name):
     if token_name is None or token_name == "" or token_name == " ":
         print("invalid token: {}".format(token_name))
@@ -211,5 +210,5 @@ if __name__=="__main__":
         print("**********************************_display_coverall_all_builds**********************************")
         _display_coverall_all_builds(platform, username, repo_name)
 
-        print("**********************************_display_coverall_builds**********************************")
+        print("**********************************_display_coverall_build**********************************")
         _display_coverall_build(platform, username, repo_name, sha_value)
