@@ -23,7 +23,7 @@ class disablePrintOutput:
         sys.stdout = self._original_stdout
 
 # Helper functions for codecov printing of each commit info and their resulting code coverage
-def __print_codecov_commits(content, username, repo_name, language):
+def __get_codecov_commit_list(content, username, repo_name, language):
     commit = None
     commit_list = []
 
@@ -42,7 +42,7 @@ def __print_codecov_commits(content, username, repo_name, language):
 
     return commit_list
 
-def __print_codecov_commit_build(content, sha_value, username, repo_name, language):
+def __get_codecov_commit_from_sha(content, sha_value, username, repo_name, language):
     commit = None
 
     for commit in content['results']:
@@ -54,17 +54,16 @@ def __print_codecov_commit_build(content, sha_value, username, repo_name, langua
         coverage = totals.get('coverage', None)
 
         if coverage is not None and commit['commitid'] == sha_value:
-            print(f"codecov, {username}/{repo_name}, {coverage}%, {commit['commitid']}, {commit['timestamp']}, {language}")
-            return True
+            return [username, repo_name, coverage, commit['commitid'], commit['timestamp'], language]
         elif coverage is None:
-            print(f"codecov not used: {username}/{repo_name}, {commit['commitid']}, {commit['timestamp']}")
+            print(f"codecov not used: {username}/{repo_name}/{language}, {commit['commitid']}, {commit['timestamp']}")
             return False
         else:
             continue
 
     return False
 
-def display_codecov_first_page(platform, username, repo_name, token_name, language):
+def get_codecov_first_page(platform, username, repo_name, token_name, language):
     if token_name is None or token_name == "" or token_name == " ":
         print("invalid token: {}".format(token_name))
         return False
@@ -88,17 +87,16 @@ def display_codecov_first_page(platform, username, repo_name, token_name, langua
             print("Repo did implement codecov but did not use it to generate code coverage reports.")
             return False
 
-        codecov_commit_list = __print_codecov_commits(content, username, repo_name, language)
+        codecov_commit_list = __get_codecov_commit_list(content, username, repo_name, language)
         for commit in codecov_commit_list:
-            for detail_commit in commit:
-                final_list.append(detail_commit)
+            final_list.append(commit)
     else:
         print("codecov returned with error status:".format(response.status_code))
         return False
 
-    return True, final_list
+    return final_list
 
-def get_codecov_total_pages(platform, username, repo_name, token_name, language):
+def get_codecov_total_pages(platform, username, repo_name, token_name):
     if token_name is None or token_name == "" or token_name == " ":
         print("invalid token: {}".format(token_name))
         return False
@@ -118,7 +116,7 @@ def get_codecov_total_pages(platform, username, repo_name, token_name, language)
 
     return content['total_pages']
 
-def display_codecov_all_builds(platform, username, repo_name, token_name, language):
+def get_codecov_all_builds(platform, username, repo_name, token_name, language):
     if token_name is None or token_name == "" or token_name == " ":
         print("invalid token: {}".format(token_name))
         return False
@@ -146,7 +144,7 @@ def display_codecov_all_builds(platform, username, repo_name, token_name, langua
             return False
 
         while page_num < content['total_pages']:
-            codecov_commit_list.append(__print_codecov_commits(content, username, repo_name, language))
+            codecov_commit_list.append(__get_codecov_commit_list(content, username, repo_name, language))
             print(page_num)
             codecov_endpoint = "https://api.codecov.io/api/v2/{}/{}/repos/{}/commits/?page={}"
             page_num+=1
@@ -166,7 +164,7 @@ def display_codecov_all_builds(platform, username, repo_name, token_name, langua
 
     return final_list
 
-def display_codecov_build(platform, username, repo_name, token_name, sha_value):
+def get_codecov_build(platform, username, repo_name, token_name, sha_value, language):
     if token_name is None or token_name == "" or token_name == " ":
         print("invalid token: {}".format(token_name))
         return False
@@ -185,8 +183,8 @@ def display_codecov_build(platform, username, repo_name, token_name, sha_value):
     )
     content = json.loads(response.text)
     print(endpoint)
-    if __print_codecov_commit_build(content, sha_value, username, repo_name):
-        return True
+    if commit_build := __get_codecov_commit_from_sha(content, sha_value, username, repo_name, language):
+        return commit_build
 
     if response.status_code == 200:
         commit = None
@@ -198,8 +196,9 @@ def display_codecov_build(platform, username, repo_name, token_name, sha_value):
 
         while next_page_url is not None:
             print(next_page_url)
-            if __print_codecov_commit_build(content, sha_value, username, repo_name):
-                return True
+            if commit_build := __get_codecov_commit_from_sha(content, sha_value, username, repo_name, language):
+                return commit_build
+
             response = requests.get(
                 next_page_url,
                 headers=codecov_headers,
@@ -207,8 +206,8 @@ def display_codecov_build(platform, username, repo_name, token_name, sha_value):
             content = json.loads(response.text)
             next_page_url = content['next']
 
-        if __print_codecov_commit_build(content, sha_value, username, repo_name):
-            return True
+        if commit_build := __get_codecov_commit_from_sha(content, sha_value, username, repo_name, language):
+            return commit_build
         else:
             error_msg = "codecov, repo from sha value: {} not found"
             print(error_msg.format(sha_value))
@@ -218,7 +217,7 @@ def display_codecov_build(platform, username, repo_name, token_name, sha_value):
         print("codecov returned with error status:".format(response.status_code))
         return False
 
-def display_coverall(platform, username, repo_name):
+def get_coverall_oldest_build(platform, username, repo_name, language):
     coverall_endpoint = "https://coveralls.io/github/{}/{}.json"
     coverall_endpoint = coverall_endpoint.format(username, repo_name)
 
@@ -227,18 +226,19 @@ def display_coverall(platform, username, repo_name):
             data = json.load(url)
 
             if data is not None and data['covered_percent'] is not None:
-                print(f"coverall: {username}/{repo_name}: {data['covered_percent']}%")
-                return True
+                return [username, repo_name, data['covered_percent'], data['commit_sha'], data['created_at'], language]
             else:
                 return False
+
     except urllib.error.HTTPError as e:
         print(f"coverall not used: {username}/{repo_name}")
         return False
 
-def display_coverall_ten_builds(platform, username, repo_name):
+def get_coverall_ten_builds(platform, username, repo_name, language):
     page_num = 1
     coverall_endpoint = "https://coveralls.io/github/{}/{}.json?page={}"
     coverall_endpoint = coverall_endpoint.format(username, repo_name, page_num)
+    report_info = []
 
     try:
         with urllib.request.urlopen(coverall_endpoint) as url:
@@ -249,16 +249,17 @@ def display_coverall_ten_builds(platform, username, repo_name):
 
                 for build in data_builds:
                     if build['covered_percent'] is not None:
-                        print(f"coverall, {username}/{repo_name}, {build['covered_percent']}%")
-                        print(f"commit_sha: {build['commit_sha']}, created_at: {build['created_at']}")
-                return True
+                        report_info.append([username, repo_name, build['covered_percent'], build['commit_sha'],
+                                            build['created_at'], language])
+                return report_info
             else:
                 return False
+
     except urllib.error.HTTPError as e:
         print(f"coverall not used: {username}/{repo_name}")
         return False
 
-def display_coverall_build(platform, username, repo_name, sha_value):
+def get_coverall_build(platform, username, repo_name, sha_value, language):
     page_num = 1
     coverall_endpoint_first_page = "https://coveralls.io/github/{}/{}.json?page={}"
     coverall_endpoint_first_page = coverall_endpoint_first_page.format(username, repo_name, page_num)
@@ -283,9 +284,8 @@ def display_coverall_build(platform, username, repo_name, sha_value):
                             if DEBUG: print(f"{build['commit_sha']} == {sha_value}")
 
                             if build['covered_percent'] is not None and build['commit_sha'] == sha_value:
-                                print(f"coverall, {username}/{repo_name}, {build['covered_percent']}%")
-                                print(f"commit_sha: {build['commit_sha']}, created_at: {build['created_at']}")
-                                return True
+                                return [username, repo_name, build['covered_percent'],
+                                        build['commit_sha'], build['created_at'], language]
                     page_num += 1
 
                 error_msg = "coverall, repo from sha value: {} not found"
@@ -293,12 +293,13 @@ def display_coverall_build(platform, username, repo_name, sha_value):
                 return False
             else:
                 return False
+
     except urllib.error.HTTPError as e:
         print(f"coverall not used: {username}/{repo_name}")
         return False
 
 
-def display_coverall_all_builds(platform, username, repo_name, language):
+def get_coverall_all_builds(platform, username, repo_name, language):
     page_num = 1
     coverall_endpoint_first_page = "https://coveralls.io/github/{}/{}.json?page={}"
     coverall_endpoint_first_page = coverall_endpoint_first_page.format(username, repo_name, page_num)
@@ -327,14 +328,15 @@ def display_coverall_all_builds(platform, username, repo_name, language):
                                 # print(f"commit_sha: {build['commit_sha']}, created_at: {build['created_at']}")
                     page_num += 1
                 return report_info
+
     except urllib.error.HTTPError as e:
         print(f"coverall not used: {username}/{repo_name}")
         return False
 
 def detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token, language):
     with disablePrintOutput():
-        codecov_used = display_codecov_first_page(platform, username, repo_name, codecov_API_token)
-        coverall_used = display_coverall(platform, username, repo_name)
+        codecov_used = bool(get_codecov_first_page(platform, username, repo_name, codecov_API_token, language))
+        coverall_used = bool(get_coverall_oldest_build(platform, username, repo_name, language))
 
     if codecov_used or coverall_used:
         return [platform, username, repo_name, codecov_used, coverall_used, language]
@@ -355,29 +357,23 @@ if __name__=="__main__":
         language = sys.argv[7]
 
         if function_option == "1":
-            print("**********************************_display_codecov_first_page**********************************")
-            display_codecov_first_page(platform, username, repo_name, codecov_API_token)
+            get_codecov_first_page(platform, username, repo_name, codecov_API_token, language)
         elif function_option == "2":
-            print("**********************************_display_codecov_all_builds**********************************")
-            display_codecov_all_builds(platform, username, repo_name, codecov_API_token, language)
+            get_codecov_all_builds(platform, username, repo_name, codecov_API_token, language)
         elif function_option == "3":
-            print("**********************************_display_codecov_build**********************************")
-            display_codecov_build(platform, username, repo_name, codecov_API_token, sha_value)
+            get_codecov_build(platform, username, repo_name, codecov_API_token, sha_value, language)
         elif function_option == "4":
-            print("**********************************_display_coverall**********************************")
-            display_coverall(platform, username, repo_name)
+            get_coverall_oldest_build(platform, username, repo_name, language)
         elif function_option == "5":
-            print("**********************************_display_coverall_ten_builds**********************************")
-            display_coverall_ten_builds(platform, username, repo_name)
+            get_coverall_ten_builds(platform, username, repo_name, language)
         elif function_option == "6":
-            print("**********************************_display_coverall_all_builds**********************************")
-            display_coverall_all_builds(platform, username, repo_name, language)
+            get_coverall_all_builds(platform, username, repo_name, language)
         elif function_option == "7":
-            print("**********************************_display_coverall_build**********************************")
-            display_coverall_build(platform, username, repo_name, sha_value)
+            get_coverall_build(platform, username, repo_name, sha_value, language)
         elif function_option == "8":
-            print("**********************************_detect_coverage_tool_usage**********************************")
-            detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token)
+            detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token, language)
+        elif function_option == "9":
+            get_codecov_total_pages(platform, username, repo_name, codecov_API_token)
         else:
             print(f"Invalid option: {repr(function_option)}")
 
