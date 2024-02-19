@@ -25,6 +25,7 @@ class disablePrintOutput:
 # Helper functions for codecov printing of each commit info and their resulting code coverage
 def __print_codecov_commits(content, username, repo_name):
     commit = None
+    commit_list = []
 
     for commit in content['results']:
         totals = commit['totals']
@@ -35,9 +36,11 @@ def __print_codecov_commits(content, username, repo_name):
         coverage = totals.get('coverage', None)
 
         if coverage is not None:
-            print(f"codecov, {username}/{repo_name}, {coverage}%, {commit['commitid']}, {commit['timestamp']}")
+            commit_list.append([username, repo_name, coverage, commit['commitid'], commit['timestamp']])
         else:
             print(f"codecov not used: {username}/{repo_name}, {commit['commitid']}, {commit['timestamp']}")
+
+    return commit_list
 
 def __print_codecov_commit_build(content, sha_value, username, repo_name):
     commit = None
@@ -91,6 +94,26 @@ def display_codecov_first_page(platform, username, repo_name, token_name):
 
     return True
 
+def get_codecov_total_pages(platform, username, repo_name, token_name):
+    if token_name is None or token_name == "" or token_name == " ":
+        print("invalid token: {}".format(token_name))
+        return False
+
+    #https://api.codecov.io/api/v2/{service}/{owner_username}/repos/{repo_name}/commits/
+    codecov_endpoint = "https://api.codecov.io/api/v2/{}/{}/repos/{}/commits/"
+
+    codecov_headers = {
+        'Authorization': 'bearer {}'.format(token_name)
+    }
+    endpoint = codecov_endpoint.format(platform, username, repo_name)
+    response = requests.get(
+        endpoint,
+        headers=codecov_headers,
+    )
+    content = json.loads(response.text)
+
+    return content['total_pages']
+
 def display_codecov_all_builds(platform, username, repo_name, token_name):
     if token_name is None or token_name == "" or token_name == " ":
         print("invalid token: {}".format(token_name))
@@ -103,40 +126,38 @@ def display_codecov_all_builds(platform, username, repo_name, token_name):
         'Authorization': 'bearer {}'.format(token_name)
     }
     endpoint = codecov_endpoint.format(platform, username, repo_name)
-    print(endpoint)
     response = requests.get(
         endpoint,
         headers=codecov_headers,
     )
     content = json.loads(response.text)
-    __print_codecov_commits(content, username, repo_name)
+    codecov_commit_list = []
 
     if response.status_code == 200:
         commit = None
+        page_num = 1
+
         if content['count'] == 0:
             print("Repo did implement codecov but did not use it to generate code coverage reports.")
             return False
 
-        next_page_url = content['next']
-
-        while next_page_url is not None:
-            print(next_page_url)
-            __print_codecov_commits(content, username, repo_name)
-
+        while page_num < content['total_pages']:
+            codecov_commit_list.append(__print_codecov_commits(content, username, repo_name))
+            print(page_num)
+            codecov_endpoint = "https://api.codecov.io/api/v2/{}/{}/repos/{}/commits/?page={}"
+            page_num+=1
+            endpoint = codecov_endpoint.format(platform, username, repo_name, page_num)
             response = requests.get(
-                next_page_url,
+                endpoint,
                 headers=codecov_headers,
             )
             content = json.loads(response.text)
-            next_page_url = content['next']
-
-        __print_codecov_commits(content, username, repo_name)
 
     else:
         print("codecov returned with error status:".format(response.status_code))
         return False
 
-    return True
+    return codecov_commit_list
 
 def display_codecov_build(platform, username, repo_name, token_name, sha_value):
     if token_name is None or token_name == "" or token_name == " ":
