@@ -135,7 +135,7 @@ def display_codecov_all_builds(platform, username, repo_name, token_name):
 
     if response.status_code == 200:
         commit = None
-        page_num = 1
+        page_num = 0
 
         if content['count'] == 0:
             print("Repo did implement codecov but did not use it to generate code coverage reports.")
@@ -152,12 +152,15 @@ def display_codecov_all_builds(platform, username, repo_name, token_name):
                 headers=codecov_headers,
             )
             content = json.loads(response.text)
-
+        final_list = []
+        for commit in codecov_commit_list:
+            for detail_commit in commit:
+                final_list.append(detail_commit)
     else:
         print("codecov returned with error status:".format(response.status_code))
         return False
 
-    return codecov_commit_list
+    return final_list
 
 def display_codecov_build(platform, username, repo_name, token_name, sha_value):
     if token_name is None or token_name == "" or token_name == " ":
@@ -295,7 +298,7 @@ def display_coverall_all_builds(platform, username, repo_name):
     page_num = 1
     coverall_endpoint_first_page = "https://coveralls.io/github/{}/{}.json?page={}"
     coverall_endpoint_first_page = coverall_endpoint_first_page.format(username, repo_name, page_num)
-
+    report_info = []
     try:
         with urllib.request.urlopen(coverall_endpoint_first_page) as first_page_url:
             data = json.load(first_page_url)
@@ -311,15 +314,14 @@ def display_coverall_all_builds(platform, username, repo_name):
                     with urllib.request.urlopen(coverall_endpoint_pages) as pages_url:
                         data_pages = json.load(pages_url)
                         data_builds = data_pages['builds']
-
+                        #[username, repo_name, coverage, commit['commitid'], commit['timestamp']]
                         for build in data_builds:
                             if build['covered_percent'] is not None:
-                                print(f"coverall, {username}/{repo_name}, {build['covered_percent']}%")
-                                print(f"commit_sha: {build['commit_sha']}, created_at: {build['created_at']}")
+                                report_info.append([username, repo_name, build['covered_percent'], build['commit_sha'], build['created_at']])
+                                # print(f"coverall, {username}/{repo_name}, {build['covered_percent']}%")
+                                # print(f"commit_sha: {build['commit_sha']}, created_at: {build['created_at']}")
                     page_num += 1
-                return True
-            else:
-                return False
+                return report_info
     except urllib.error.HTTPError as e:
         print(f"coverall not used: {username}/{repo_name}")
         return False
