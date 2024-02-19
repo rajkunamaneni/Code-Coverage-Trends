@@ -51,13 +51,16 @@ def get_star_data(username, repo_name, dates):
 
 if __name__ == "__main__":
     # Example usage
-    repository_names = [["flutter", "flutter"], ["tensorflow", "tensorflow"], ["facebook", "react"]]
-    dates = ["06-03-2015", "16-01-2024", "15-02-2024", "17-02-2024"]
+    # repository_names = [["flutter", "flutter"], ["tensorflow", "tensorflow"], ["facebook", "react"]]
+    # dates = ["06-03-2015", "16-01-2024", "15-02-2024", "17-02-2024"]
 
-    for repo_name in repository_names:
-        repo = f"{repo_name[0]}/{repo_name[1]}" #username/repo_name path
-        print(f"Fetching data for repository: {repo} (GitHub link: https://github.com/{repo})")
-        data = get_star_data(repo_name[0], repo_name[1], dates)
-        if data:
-            print(data)
-        print()
+    # for repo_name in repository_names:
+    #     repo = f"{repo_name[0]}/{repo_name[1]}" #username/repo_name path
+    #     print(f"Fetching data for repository: {repo} (GitHub link: https://github.com/{repo})")
+    #     data = get_star_data(repo_name[0], repo_name[1], dates)
+    #     if data:
+    #         print(data)
+    #     print()
+
+    output = get_star_data('rajkunamaneni', 'TrafficDetector', ["06-03-2015", "16-01-2024", "15-02-2024", "17-02-2024"])
+    print(output)

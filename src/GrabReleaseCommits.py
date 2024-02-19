@@ -24,8 +24,8 @@ def retrieve_commit_hashes(username, repo_name):
     return commits_info
 
 if __name__ == "__main__":
-    username = 'facebook'
-    repo_name = 'react'
+    username = 'rajkunamaneni'
+    repo_name = 'TrafficDetector'
     commit_hashes = retrieve_commit_hashes(username, repo_name)
     for i in commit_hashes:
         print(i)

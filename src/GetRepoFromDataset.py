@@ -17,7 +17,7 @@ def filter_github_repos(csv_file_path):
     data_dict = data.to_dict(orient='records')
 
     # Filter out repositories with specified languages and non-empty domain
-    languages_to_exclude = ['Dockerfile', 'CSS', 'HTML', 'R', 'PHP', 'PowerShell', 'MATLAB', 'Perl', 'Shell', 'TeX', 'Vim Script']
+    languages_to_exclude = ['ActionScript', 'Dockerfile', 'CSS', 'HTML', 'R', 'PHP', 'PowerShell', 'MATLAB', 'Perl', 'Shell', 'TeX', 'Vim Script']
     data_dict = [
         item for item in data_dict 
         if item['language'] and item['language'] not in languages_to_exclude 

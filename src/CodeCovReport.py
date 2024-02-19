@@ -22,7 +22,7 @@ class disablePrintOutput:
         sys.stdout = self._original_stdout
 
 # Helper functions for codecov printing of each commit info and their resulting code coverage
-def __print_codecov_commits(content):
+def __print_codecov_commits(content, username, repo_name):
     commit = None
 
     for commit in content['results']:
@@ -38,7 +38,7 @@ def __print_codecov_commits(content):
         else:
             print(f"codecov not used: {username}/{repo_name}, {commit['commitid']}, {commit['timestamp']}")
 
-def __print_codecov_commit_build(content, sha_value):
+def __print_codecov_commit_build(content, sha_value, username, repo_name):
     commit = None
 
     for commit in content['results']:
@@ -83,7 +83,7 @@ def _display_codecov_first_page(platform, username, repo_name, token_name):
             print("Repo did implement codecov but did not use it to generate code coverage reports.")
             return False
 
-        __print_codecov_commits(content)
+        __print_codecov_commits(content, username, repo_name)
     else:
         print("codecov returned with error status:".format(response.status_code))
         return False
@@ -108,7 +108,7 @@ def _display_codecov_all_builds(platform, username, repo_name, token_name):
         headers=codecov_headers,
     )
     content = json.loads(response.text)
-    __print_codecov_commits(content)
+    __print_codecov_commits(content, username, repo_name)
 
     if response.status_code == 200:
         commit = None
@@ -120,7 +120,7 @@ def _display_codecov_all_builds(platform, username, repo_name, token_name):
 
         while next_page_url is not None:
             print(next_page_url)
-            __print_codecov_commits(content)
+            __print_codecov_commits(content, username, repo_name)
 
             response = requests.get(
                 next_page_url,
@@ -129,7 +129,7 @@ def _display_codecov_all_builds(platform, username, repo_name, token_name):
             content = json.loads(response.text)
             next_page_url = content['next']
 
-        __print_codecov_commits(content)
+        __print_codecov_commits(content, username, repo_name)
 
     else:
         print("codecov returned with error status:".format(response.status_code))
@@ -156,7 +156,7 @@ def _display_codecov_build(platform, username, repo_name, token_name, sha_value)
     )
     content = json.loads(response.text)
     print(endpoint)
-    if __print_codecov_commit_build(content, sha_value):
+    if __print_codecov_commit_build(content, sha_value, username, repo_name):
         return True
 
     if response.status_code == 200:
@@ -169,7 +169,7 @@ def _display_codecov_build(platform, username, repo_name, token_name, sha_value)
 
         while next_page_url is not None:
             print(next_page_url)
-            if __print_codecov_commit_build(content, sha_value):
+            if __print_codecov_commit_build(content, sha_value, username, repo_name):
                 return True
             response = requests.get(
                 next_page_url,
@@ -178,7 +178,7 @@ def _display_codecov_build(platform, username, repo_name, token_name, sha_value)
             content = json.loads(response.text)
             next_page_url = content['next']
 
-        if __print_codecov_commit_build(content, sha_value):
+        if __print_codecov_commit_build(content, sha_value, username, repo_name):
             return True
         else:
             error_msg = "codecov, repo from sha value: {} not found"
@@ -301,6 +301,8 @@ def detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token)
 
     if codecov_used or coverall_used:
         return [platform, username, repo_name, codecov_used, coverall_used]
+    else:
+        return None
 
 if __name__=="__main__":
     #print(retrieve_commit_hashes('expressjs', 'express'))
