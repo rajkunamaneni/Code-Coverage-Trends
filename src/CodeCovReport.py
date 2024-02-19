@@ -23,7 +23,7 @@ class disablePrintOutput:
         sys.stdout = self._original_stdout
 
 # Helper functions for codecov printing of each commit info and their resulting code coverage
-def __print_codecov_commits(content, username, repo_name):
+def __print_codecov_commits(content, username, repo_name, language):
     commit = None
     commit_list = []
 
@@ -36,13 +36,13 @@ def __print_codecov_commits(content, username, repo_name):
         coverage = totals.get('coverage', None)
 
         if coverage is not None:
-            commit_list.append([username, repo_name, coverage, commit['commitid'], commit['timestamp']])
+            commit_list.append([username, repo_name, coverage, commit['commitid'], commit['timestamp'], language])
         else:
-            print(f"codecov not used: {username}/{repo_name}, {commit['commitid']}, {commit['timestamp']}")
+            print(f"codecov not used: {username}/{repo_name}/{language}, {commit['commitid']}, {commit['timestamp']}")
 
     return commit_list
 
-def __print_codecov_commit_build(content, sha_value, username, repo_name):
+def __print_codecov_commit_build(content, sha_value, username, repo_name, language):
     commit = None
 
     for commit in content['results']:
@@ -54,7 +54,7 @@ def __print_codecov_commit_build(content, sha_value, username, repo_name):
         coverage = totals.get('coverage', None)
 
         if coverage is not None and commit['commitid'] == sha_value:
-            print(f"codecov, {username}/{repo_name}, {coverage}%, {commit['commitid']}, {commit['timestamp']}")
+            print(f"codecov, {username}/{repo_name}, {coverage}%, {commit['commitid']}, {commit['timestamp']}, {language}")
             return True
         elif coverage is None:
             print(f"codecov not used: {username}/{repo_name}, {commit['commitid']}, {commit['timestamp']}")
@@ -64,7 +64,7 @@ def __print_codecov_commit_build(content, sha_value, username, repo_name):
 
     return False
 
-def display_codecov_first_page(platform, username, repo_name, token_name):
+def display_codecov_first_page(platform, username, repo_name, token_name, language):
     if token_name is None or token_name == "" or token_name == " ":
         print("invalid token: {}".format(token_name))
         return False
@@ -82,19 +82,23 @@ def display_codecov_first_page(platform, username, repo_name, token_name):
     )
     content = json.loads(response.content)
 
+    final_list = []
     if response.status_code == 200:
         if content['count'] == 0:
             print("Repo did implement codecov but did not use it to generate code coverage reports.")
             return False
 
-        __print_codecov_commits(content, username, repo_name)
+        codecov_commit_list = __print_codecov_commits(content, username, repo_name, language)
+        for commit in codecov_commit_list:
+            for detail_commit in commit:
+                final_list.append(detail_commit)
     else:
         print("codecov returned with error status:".format(response.status_code))
         return False
 
-    return True
+    return True, final_list
 
-def get_codecov_total_pages(platform, username, repo_name, token_name):
+def get_codecov_total_pages(platform, username, repo_name, token_name, language):
     if token_name is None or token_name == "" or token_name == " ":
         print("invalid token: {}".format(token_name))
         return False
@@ -114,7 +118,7 @@ def get_codecov_total_pages(platform, username, repo_name, token_name):
 
     return content['total_pages']
 
-def display_codecov_all_builds(platform, username, repo_name, token_name):
+def display_codecov_all_builds(platform, username, repo_name, token_name, language):
     if token_name is None or token_name == "" or token_name == " ":
         print("invalid token: {}".format(token_name))
         return False
@@ -142,7 +146,7 @@ def display_codecov_all_builds(platform, username, repo_name, token_name):
             return False
 
         while page_num < content['total_pages']:
-            codecov_commit_list.append(__print_codecov_commits(content, username, repo_name))
+            codecov_commit_list.append(__print_codecov_commits(content, username, repo_name, language))
             print(page_num)
             codecov_endpoint = "https://api.codecov.io/api/v2/{}/{}/repos/{}/commits/?page={}"
             page_num+=1
@@ -294,7 +298,7 @@ def display_coverall_build(platform, username, repo_name, sha_value):
         return False
 
 
-def display_coverall_all_builds(platform, username, repo_name):
+def display_coverall_all_builds(platform, username, repo_name, language):
     page_num = 1
     coverall_endpoint_first_page = "https://coveralls.io/github/{}/{}.json?page={}"
     coverall_endpoint_first_page = coverall_endpoint_first_page.format(username, repo_name, page_num)
@@ -317,7 +321,8 @@ def display_coverall_all_builds(platform, username, repo_name):
                         #[username, repo_name, coverage, commit['commitid'], commit['timestamp']]
                         for build in data_builds:
                             if build['covered_percent'] is not None:
-                                report_info.append([username, repo_name, build['covered_percent'], build['commit_sha'], build['created_at']])
+                                report_info.append([username, repo_name, build['covered_percent'],
+                                                    build['commit_sha'], build['created_at'], language])
                                 # print(f"coverall, {username}/{repo_name}, {build['covered_percent']}%")
                                 # print(f"commit_sha: {build['commit_sha']}, created_at: {build['created_at']}")
                     page_num += 1
@@ -326,13 +331,13 @@ def display_coverall_all_builds(platform, username, repo_name):
         print(f"coverall not used: {username}/{repo_name}")
         return False
 
-def detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token):
+def detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token, language):
     with disablePrintOutput():
         codecov_used = display_codecov_first_page(platform, username, repo_name, codecov_API_token)
         coverall_used = display_coverall(platform, username, repo_name)
 
     if codecov_used or coverall_used:
-        return [platform, username, repo_name, codecov_used, coverall_used]
+        return [platform, username, repo_name, codecov_used, coverall_used, language]
     else:
         return None
 
@@ -347,13 +352,14 @@ if __name__=="__main__":
         repo_name = sys.argv[4]
         sha_value = sys.argv[5]
         function_option = sys.argv[6]
+        language = sys.argv[7]
 
         if function_option == "1":
             print("**********************************_display_codecov_first_page**********************************")
             display_codecov_first_page(platform, username, repo_name, codecov_API_token)
         elif function_option == "2":
             print("**********************************_display_codecov_all_builds**********************************")
-            display_codecov_all_builds(platform, username, repo_name, codecov_API_token)
+            display_codecov_all_builds(platform, username, repo_name, codecov_API_token, language)
         elif function_option == "3":
             print("**********************************_display_codecov_build**********************************")
             display_codecov_build(platform, username, repo_name, codecov_API_token, sha_value)
@@ -365,7 +371,7 @@ if __name__=="__main__":
             display_coverall_ten_builds(platform, username, repo_name)
         elif function_option == "6":
             print("**********************************_display_coverall_all_builds**********************************")
-            display_coverall_all_builds(platform, username, repo_name)
+            display_coverall_all_builds(platform, username, repo_name, language)
         elif function_option == "7":
             print("**********************************_display_coverall_build**********************************")
             display_coverall_build(platform, username, repo_name, sha_value)
