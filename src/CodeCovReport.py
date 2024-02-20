@@ -12,7 +12,7 @@ from StarHistory import get_star_data
 from GetRepoFromDataset import filter_github_repos
 
 # Helper class for turning print output off temporarily.
-DEBUG = True
+DEBUG = False
 DEBUG_IMPORT_FUNC = False
 
 class disablePrintOutput:
@@ -184,7 +184,6 @@ def get_codecov_build(platform, username, repo_name, token_name, sha_value, lang
         headers=codecov_headers,
     )
     content = json.loads(response.text)
-    print(endpoint)
     if commit_build := __get_codecov_commit_from_sha(content, sha_value, username, repo_name, language):
         return commit_build
 
@@ -197,7 +196,6 @@ def get_codecov_build(platform, username, repo_name, token_name, sha_value, lang
         next_page_url = content['next']
 
         while next_page_url is not None:
-            print(next_page_url)
             if commit_build := __get_codecov_commit_from_sha(content, sha_value, username, repo_name, language):
                 return commit_build
 
@@ -276,7 +274,6 @@ def get_coverall_build(platform, username, repo_name, sha_value, language):
                 while page_num <= page_size:
                     coverall_endpoint_pages = "https://coveralls.io/github/{}/{}.json?page={}"
                     coverall_endpoint_pages = coverall_endpoint_pages.format(username, repo_name, page_num)
-                    print(coverall_endpoint_pages)
 
                     with urllib.request.urlopen(coverall_endpoint_pages) as pages_url:
                         data_pages = json.load(pages_url)

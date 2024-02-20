@@ -1,4 +1,6 @@
 import requests
+from datetime import datetime
+
 
 def get_star_data(username, repo_name, dates):
     """
@@ -36,8 +38,6 @@ def get_star_data(username, repo_name, dates):
     if response.status_code == 200:
         # Extract the JSON response
         data = response.json()
-        # print(data)
-        data = response.json()
         # Initialize result with provided dates
         result = [[date, None] for date in dates]
         # Update star counts if available
@@ -53,6 +53,38 @@ def get_star_data(username, repo_name, dates):
         print(f"Error fetching data for repository {repo_name}: {response.status_code}")
         return None
 
+
+def format_dates(original_date_string):
+    """
+    Description:
+    This function takes a list of date strings in the format '%Y-%m-%dT%H:%M:%SZ', converts them into datetime objects, and then formats them as strings in the format '%d-%m-%Y'. It returns a list of formatted date strings.
+
+    Parameters:
+    - dates (list): A list of date strings in the format '%Y-%m-%dT%H:%M:%SZ'.
+
+    Returns:
+    - date_list (list): A list of formatted date strings in the format '%d-%m-%Y'.
+    """
+
+    try:
+        # Define format string for parsing with milliseconds as optional
+        format_string = '%Y-%m-%dT%H:%M:%S.%fZ'
+        
+        # Try parsing with milliseconds
+        try:
+            original_date = datetime.strptime(original_date_string, format_string)
+        except ValueError:
+            # If parsing with milliseconds fails, try parsing without milliseconds
+            format_string = '%Y-%m-%dT%H:%M:%SZ'
+            original_date = datetime.strptime(original_date_string, format_string)
+        
+        # Format the date as 'day-month-year'
+        formatted_date = original_date.strftime('%d-%m-%Y')
+        
+        return formatted_date
+    except ValueError:
+        return "Invalid Date Format"
+
 if __name__ == "__main__":
     # Example usage
     repository_names = [["flutter", "flutter"], ["tensorflow", "tensorflow"], ["facebook", "react"]]
@@ -65,6 +97,9 @@ if __name__ == "__main__":
         if data:
             print(data)
         print()
+
+    # Example usage
+    print(format_dates('2020-01-06T13:03:15.666470Z'))
 
     # output = get_star_data('rajkunamaneni', 'TrafficDetector', ["06-03-2015", "16-01-2024", "15-02-2024", "17-02-2024"])
     # print(output)
