@@ -32,12 +32,16 @@ def get_star_data(username, repo_name, dates):
     params = {"repo": f"{username}/{repo_name}"}
 
     # Make the GET request with certificate verification
-    response = requests.get(base_url, params=params, headers=headers, verify=True)
+    response = requests.get(base_url, params=params, headers=headers, verify=True, timeout=200)
 
     # Check if the request was successful (status code 200)
     if response.status_code == 200:
         # Extract the JSON response
-        data = response.json()
+        if response.ok:
+            data = response.json()
+        else:
+            print("Failed to fetch data. Issue occur.")
+            return None
         # Initialize result with provided dates
         result = [[date, None] for date in dates]
         # Update star counts if available

@@ -5,6 +5,7 @@ import urllib.request, json
 import pandas as pd
 import sys
 import os
+import time
 
 from collections import defaultdict
 from GrabReleaseCommits import retrieve_commit_hashes
@@ -28,7 +29,6 @@ class disablePrintOutput:
 def __get_codecov_commit_list(content, username, repo_name, language):
     commit = None
     commit_list = []
-
     for commit in content['results']:
         totals = commit['totals']
 
@@ -133,8 +133,13 @@ def get_codecov_all_builds(platform, username, repo_name, token_name, language):
     response = requests.get(
         endpoint,
         headers=codecov_headers,
+        timeout=30
     )
-    content = json.loads(response.text)
+    if response.status_code == 200:
+        content = response.json()
+    else:
+        print("Failed to fetch data from codecov endpoint.")
+        return None
     codecov_commit_list = []
 
     if response.status_code == 200:
@@ -146,6 +151,8 @@ def get_codecov_all_builds(platform, username, repo_name, token_name, language):
             return False
 
         while page_num < content['total_pages']:
+            if page_num == 167:
+                break
             codecov_commit_list.append(__get_codecov_commit_list(content, username, repo_name, language))
             if DEBUG: print(page_num)
             codecov_endpoint = "https://api.codecov.io/api/v2/{}/{}/repos/{}/commits/?page={}"
@@ -154,8 +161,13 @@ def get_codecov_all_builds(platform, username, repo_name, token_name, language):
             response = requests.get(
                 endpoint,
                 headers=codecov_headers,
+                timeout=250
             )
-            content = json.loads(response.text)
+            if response.status_code == 200:
+                content = response.json()
+            else:
+                print("Failed to fetch data from codecov endpoint.")
+                return None
         final_list = []
         for commit in codecov_commit_list:
             for detail_commit in commit:
