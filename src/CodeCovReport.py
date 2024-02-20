@@ -12,7 +12,9 @@ from StarHistory import get_star_data
 from GetRepoFromDataset import filter_github_repos
 
 # Helper class for turning print output off temporarily.
-DEBUG = False
+DEBUG = True
+DEBUG_IMPORT_FUNC = False
+
 class disablePrintOutput:
     def __enter__(self):
         self._original_stdout = sys.stdout
@@ -145,7 +147,7 @@ def get_codecov_all_builds(platform, username, repo_name, token_name, language):
 
         while page_num < content['total_pages']:
             codecov_commit_list.append(__get_codecov_commit_list(content, username, repo_name, language))
-            print(page_num)
+            if DEBUG: print(page_num)
             codecov_endpoint = "https://api.codecov.io/api/v2/{}/{}/repos/{}/commits/?page={}"
             page_num+=1
             endpoint = codecov_endpoint.format(platform, username, repo_name, page_num)
@@ -218,8 +220,8 @@ def get_codecov_build(platform, username, repo_name, token_name, sha_value, lang
         return False
 
 def get_coverall_oldest_build(platform, username, repo_name, language):
-    coverall_endpoint = "https://coveralls.io/github/{}/{}.json"
-    coverall_endpoint = coverall_endpoint.format(username, repo_name)
+    coverall_endpoint = "https://coveralls.io/{}/{}/{}.json"
+    coverall_endpoint = coverall_endpoint.format(platform, username, repo_name)
 
     try:
         with urllib.request.urlopen(coverall_endpoint) as url:
@@ -231,13 +233,13 @@ def get_coverall_oldest_build(platform, username, repo_name, language):
                 return False
 
     except urllib.error.HTTPError as e:
-        print(f"coverall not used: {username}/{repo_name}")
+        print(f"coverall not used: {platform}/{username}/{repo_name}: {e}")
         return False
 
 def get_coverall_ten_builds(platform, username, repo_name, language):
     page_num = 1
-    coverall_endpoint = "https://coveralls.io/github/{}/{}.json?page={}"
-    coverall_endpoint = coverall_endpoint.format(username, repo_name, page_num)
+    coverall_endpoint = "https://coveralls.io/{}/{}/{}.json?page={}"
+    coverall_endpoint = coverall_endpoint.format(platform, username, repo_name, page_num)
     report_info = []
 
     try:
@@ -256,13 +258,13 @@ def get_coverall_ten_builds(platform, username, repo_name, language):
                 return False
 
     except urllib.error.HTTPError as e:
-        print(f"coverall not used: {username}/{repo_name}")
+        print(f"coverall not used: {platform}/{username}/{repo_name}: {e}")
         return False
 
 def get_coverall_build(platform, username, repo_name, sha_value, language):
     page_num = 1
-    coverall_endpoint_first_page = "https://coveralls.io/github/{}/{}.json?page={}"
-    coverall_endpoint_first_page = coverall_endpoint_first_page.format(username, repo_name, page_num)
+    coverall_endpoint_first_page = "https://coveralls.io/{}/{}/{}.json?page={}"
+    coverall_endpoint_first_page = coverall_endpoint_first_page.format(platform, username, repo_name, page_num)
 
     try:
         with urllib.request.urlopen(coverall_endpoint_first_page) as first_page_url:
@@ -295,14 +297,14 @@ def get_coverall_build(platform, username, repo_name, sha_value, language):
                 return False
 
     except urllib.error.HTTPError as e:
-        print(f"coverall not used: {username}/{repo_name}")
+        print(f"coverall not used: {platform}/{username}/{repo_name}: {e}")
         return False
 
 
 def get_coverall_all_builds(platform, username, repo_name, language):
     page_num = 1
-    coverall_endpoint_first_page = "https://coveralls.io/github/{}/{}.json?page={}"
-    coverall_endpoint_first_page = coverall_endpoint_first_page.format(username, repo_name, page_num)
+    coverall_endpoint_first_page = "https://coveralls.io/{}/{}/{}.json?page={}"
+    coverall_endpoint_first_page = coverall_endpoint_first_page.format(platform, username, repo_name, page_num)
     report_info = []
     try:
         with urllib.request.urlopen(coverall_endpoint_first_page) as first_page_url:
@@ -314,7 +316,8 @@ def get_coverall_all_builds(platform, username, repo_name, language):
                 while page_num <= page_size:
                     coverall_endpoint_pages = "https://coveralls.io/github/{}/{}.json?page={}"
                     coverall_endpoint_pages = coverall_endpoint_pages.format(username, repo_name, page_num)
-                    print(coverall_endpoint_pages)
+
+                    if DEBUG: print(coverall_endpoint_pages)
 
                     with urllib.request.urlopen(coverall_endpoint_pages) as pages_url:
                         data_pages = json.load(pages_url)
@@ -324,13 +327,15 @@ def get_coverall_all_builds(platform, username, repo_name, language):
                             if build['covered_percent'] is not None:
                                 report_info.append([username, repo_name, build['covered_percent'],
                                                     build['commit_sha'], build['created_at'], language])
-                                # print(f"coverall, {username}/{repo_name}, {build['covered_percent']}%")
-                                # print(f"commit_sha: {build['commit_sha']}, created_at: {build['created_at']}")
+
+                                if DEBUG:
+                                    print(f"coverall, {platform}/{username}/{repo_name}, {build['covered_percent']}%")
+                                    print(f"commit_sha: {build['commit_sha']}, created_at: {build['created_at']}")
                     page_num += 1
                 return report_info
 
     except urllib.error.HTTPError as e:
-        print(f"coverall not used: {username}/{repo_name}")
+        print(f"coverall not used: {platform}/{username}/{repo_name}: {e}")
         return False
 
 def detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token, language):
@@ -344,9 +349,11 @@ def detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token,
         return None
 
 if __name__=="__main__":
-    #print(retrieve_commit_hashes('expressjs', 'express'))
-    #print(get_star_data('expressjs', 'express', ["06-03-2015", "16-01-2024", "15-02-2024", "17-02-2024"]))
-    #print(filter_github_repos('../data/github-ranking-2024-02-15.csv'))
+    if DEBUG_IMPORT_FUNC:
+        print(retrieve_commit_hashes('expressjs', 'express'))
+        print(get_star_data('expressjs', 'express', ["06-03-2015", "16-01-2024", "15-02-2024", "17-02-2024"]))
+        print(filter_github_repos('../data/github-ranking-2024-02-15.csv'))
+
     try:
         codecov_API_token = sys.argv[1]
         platform = sys.argv[2]
