@@ -4,3 +4,4 @@
 *.xml
 *.venv
 /__pycache__/
+src/.idea/.name
