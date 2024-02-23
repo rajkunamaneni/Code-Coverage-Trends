@@ -31,11 +31,11 @@ repositories_list = ["grafana", "videojs",  "keepassxreboot", "Tencent"]
 plt.figure(figsize=(10, 6))
 for repo_name in repositories_list:
     repository_df = df[df['Username'] == repo_name]
-    plt.plot(repository_df['Timestamp'], repository_df['Star_Count'], label=repo_name)
+    plt.plot(repository_df['Timestamp'], repository_df['Percentage'], label=repo_name)
 
 # Set labels and title
 plt.xlabel('Time')
-plt.ylabel('Star Change')
+plt.ylabel('Percentage Change')
 plt.title('Popularity Results Over Time (Selected Repositories)')
 plt.legend()
 plt.xticks(rotation=45)
