@@ -25,7 +25,7 @@ df['Timestamp'] = df['Timestamp'].apply(lambda x: parse_date(x, original_format_
 df = df.sort_values(by='Timestamp')
 
 # Define the repository list
-repositories_list = ["grafana", "videojs",  "keepassxreboot", "Tencent"]
+repositories_list = ["grafana"]
 
 # Plot code coverage results for each repository in the list
 plt.figure(figsize=(10, 6))
