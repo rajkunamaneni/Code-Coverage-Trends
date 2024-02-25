@@ -24,8 +24,24 @@ df['Timestamp'] = df['Timestamp'].apply(lambda x: parse_date(x, original_format_
 # Sort the DataFrame by 'Timestamp'
 df = df.sort_values(by='Timestamp')
 
-# Define the repository list
-repositories_list = ["grafana"]
+# # Define the repository list
+# username  = "fossas"
+# repo = "fossa-cli"
+
+data = ["RocketChat", "date-fns", "metabase", "tqdm", "axios", "dzenbot", "halfrost", "beego", "go-kratos", "getsentry", "chartjs", "go-gorm", "grafana", "parcel-bundler", "swoole", "go-gitea", "valyala", "rapid7", "apache", "grpc", "vapor", "lsd-rs", "felangel", "nsqio", "alibaba", "brettwooldridge", "dromara", "k3s-io", "toeverything", "pingcap", "babel", "mojs", "openssl", "mybatis", "photoprism", "mislav", "AdguardTeam", "SDWebImage", "dandavison", "encode", "Moya", "dapr", "istio", "n8n-io", "typeorm", "forem", "jestjs", "ant-design", "freeCodeCamp", "charmbracelet", "Tencent", "RustPython", "fastlane", "certbot", "jedisct1", "videojs", "TryGhost", "urfave", "keepassxreboot", "goharbor", "jesseduffield", "xi-editor", "diem", "httpie"]
+    
+
+
+#2021-2024
+fromcsv  = ['AdguardTeam', 'apache', 'JuliaCI', 'jump-dev', 'videojs', 'weymouth', 'grafana', 'JuliaSymbolics', 'ihub-pub', 'keepassxreboot', 'microsoft', 'Tencent', 'kickstarter', 'allegro']
+
+newList = []
+for i in fromcsv:
+    if i in data:
+        newList.append(i)
+
+print(newList)
+repositories_list = ['AdguardTeam', 'videojs', 'grafana', 'keepassxreboot', 'Tencent']
 
 # Plot code coverage results for each repository in the list
 plt.figure(figsize=(10, 6))
@@ -35,8 +51,8 @@ for repo_name in repositories_list:
 
 # Set labels and title
 plt.xlabel('Time')
-plt.ylabel('Percentage Change')
-plt.title('Popularity Results Over Time (Selected Repositories)')
+plt.ylabel('Code Percentage Change')
+# plt.title(f'Popularity Results Over Time {username}/{repo} Repository')
 plt.legend()
 plt.xticks(rotation=45)
 plt.tight_layout()

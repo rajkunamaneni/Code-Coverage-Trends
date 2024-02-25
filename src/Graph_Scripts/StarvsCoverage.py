@@ -14,7 +14,7 @@ data = {
 
 # Define the list of repositories
 # repositories_list = data["Medium Star Count Repositories"]
-repositories_list = ["grafana", "videojs",  "keepassxreboot", "Tencent"]
+repositories_list = ["lsd-rs"]
 
 # Filter the DataFrame for the specified repositories
 filtered_df = df[df['Username'].isin(repositories_list)]
