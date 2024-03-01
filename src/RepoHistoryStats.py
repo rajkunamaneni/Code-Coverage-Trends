@@ -12,7 +12,7 @@ GITHUB_AUTH_HEADER = {
 def _get_pull_request_history_data(username, repo_name):
     session = requests.Session()
     #github_endpoint = "https://api.github.com/search/issues?q=repo%3A{}%2F{}&type=pullrequests&page=1"
-    github_endpoint = "https://api.github.com/repos/{}/{}/pulls?state=all&page=1"
+    github_endpoint = "https://api.github.com/repos/{}/{}/pulls?state=all&per_page=100"
     endpoint = github_endpoint.format(username, repo_name)
     print(endpoint)
 
@@ -22,12 +22,12 @@ def _get_pull_request_history_data(username, repo_name):
     next_page = first_page
 
     while _get_next_page(next_page) is not None:
-        time.sleep(4)
+        time.sleep(3)
         try:
             next_page_url = next_page.links['next']['url']
             next_page = session.get(next_page_url, headers=GITHUB_AUTH_HEADER)
             yield next_page
-
+            print(next_page_url)
         except KeyError:
             logging.info("No more Github pages")
             break
@@ -51,8 +51,9 @@ def get_pull_requests(username, repository):
     return pull_requests
 
 if __name__ == "__main__":
-    username, repository = "EvanLi", "Github-Ranking"
+    username, repository = "mozilla", "shumway"
     pull_requests = get_pull_requests(username, repository)
 
     for pr in pull_requests:
         print(pr)
+    print(len(pull_requests))
