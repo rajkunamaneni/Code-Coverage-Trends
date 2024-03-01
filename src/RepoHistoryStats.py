@@ -65,10 +65,6 @@ def get_pull_requests(username, repository):
     save_to_csv(pull_requests, username, repository)
 
 if __name__ == "__main__":
-    # username, repository = "mozilla", "shumway"
-    username, repository = "EvanLi", "Github-Ranking"
+    username, repository = "mozilla", "shumway"
+    # username, repository = "EvanLi", "Github-Ranking"
     get_pull_requests(username, repository)
-
-    # for pr in pull_requests:
-    #     print(pr)
-    # print(len(pull_requests))
