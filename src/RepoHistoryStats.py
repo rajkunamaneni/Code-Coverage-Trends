@@ -11,7 +11,8 @@ GITHUB_AUTH_HEADER = {
 
 def _get_pull_request_history_data(username, repo_name):
     session = requests.Session()
-    github_endpoint = "https://api.github.com/search/issues?q=repo%3A{}%2F{}&type=pullrequests&page=1"
+    #github_endpoint = "https://api.github.com/search/issues?q=repo%3A{}%2F{}&type=pullrequests&page=1"
+    github_endpoint = "https://api.github.com/repos/{}/{}/pulls?state=all&page=1"
     endpoint = github_endpoint.format(username, repo_name)
     print(endpoint)
 
@@ -39,15 +40,14 @@ def get_pull_requests(username, repository):
 
     for page in _get_pull_request_history_data(username, repository):
         content = json.loads(page.content)
-        print(content)
-        pull_request_list.append(content['items'])
+        pull_request_list.append(content)
 
     pull_requests = []
     for pr_page in pull_request_list:
-        [pr.pop('body') for pr in pr_page]
+
         for pr_instance in pr_page:
             pull_requests.append(pr_instance)
-
+    [pr.pop('body') for pr in pull_requests]
     return pull_requests
 
 if __name__ == "__main__":
