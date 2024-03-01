@@ -3,11 +3,25 @@ import logging
 import requests
 import DateUtil
 import time
+import pandas as pd
+import csv
+import os
 
 GITHUB_TOKEN = "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"
 GITHUB_AUTH_HEADER = {
     'authorization': "token {0}".format(GITHUB_TOKEN),
 }
+
+def save_to_csv(pull_requests, username, repository):
+    key_list = list(pull_requests[0].keys())
+    csv_path = '../data/pr_history_'
+    csv_path_name = csv_path + username + '_' + repository + '.csv'
+    with open(csv_path_name, 'w', encoding="utf-8", newline='') as f:  # You will need 'wb' mode in Python 2.x
+        w = csv.DictWriter(f, key_list)
+        w.writeheader()
+        for row_pr in pull_requests:
+            w.writerow(row_pr)
+    return True
 
 def _get_pull_request_history_data(username, repo_name):
     session = requests.Session()
@@ -22,7 +36,7 @@ def _get_pull_request_history_data(username, repo_name):
     next_page = first_page
 
     while _get_next_page(next_page) is not None:
-        time.sleep(3)
+        time.sleep(2)
         try:
             next_page_url = next_page.links['next']['url']
             next_page = session.get(next_page_url, headers=GITHUB_AUTH_HEADER)
@@ -44,16 +58,17 @@ def get_pull_requests(username, repository):
 
     pull_requests = []
     for pr_page in pull_request_list:
-
         for pr_instance in pr_page:
             pull_requests.append(pr_instance)
     [pr.pop('body') for pr in pull_requests]
-    return pull_requests
+
+    save_to_csv(pull_requests, username, repository)
 
 if __name__ == "__main__":
-    username, repository = "mozilla", "shumway"
-    pull_requests = get_pull_requests(username, repository)
+    # username, repository = "mozilla", "shumway"
+    username, repository = "EvanLi", "Github-Ranking"
+    get_pull_requests(username, repository)
 
-    for pr in pull_requests:
-        print(pr)
-    print(len(pull_requests))
+    # for pr in pull_requests:
+    #     print(pr)
+    # print(len(pull_requests))

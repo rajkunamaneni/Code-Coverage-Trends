@@ -105,10 +105,10 @@ class WriteFile(object):
             df_all = pd.concat([df_all, df_repos], ignore_index=True)
 
         save_date = datetime.utcnow().strftime("%Y-%m-%d")
-        os.makedirs('../Data', exist_ok=True)
+        os.makedirs('../data/Data', exist_ok=True)
 
         num_of_repo_per_lang = self.bulk_count * self.bulk_size
-        csv_path = '../Data/github-ranking-'
+        csv_path = '../data/Data/github-ranking-'
         csv_path_name = csv_path + save_date + '_' + str(num_of_repo_per_lang) + '.csv'
         df_all.to_csv(csv_path_name, index=False, encoding='utf-8')
         print('Saved repository data to: ' + csv_path_name)
