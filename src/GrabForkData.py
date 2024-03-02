@@ -7,14 +7,14 @@ import urllib.request
 # Replace 'YOUR_API_TOKEN' with your actual GitHub API token
 API_TOKEN = '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'
 
-def append_data_to_csv(data, csv_filename):
+def append_data_to_csv(data, csv_filename, columns_input):
     try:
         # Load existing data from CSV file
         existing_data = pd.read_csv(csv_filename)
 
         if isinstance(data, list):
             # Convert list to DataFrame
-            data = pd.DataFrame([data], columns=['Owner', 'SSH URL', 'Created At'])
+            data = pd.DataFrame([data], columns=columns_input)
 
         # Append the new data to the existing data
         combined_data = pd.concat([existing_data, data], ignore_index=True)
@@ -26,7 +26,7 @@ def append_data_to_csv(data, csv_filename):
     except FileNotFoundError:
         print("CSV file not found. Creating a new CSV file...")
         if isinstance(data, list):
-            data = pd.DataFrame([data], columns=['Owner', 'SSH URL', 'Created At'])
+            data = pd.DataFrame([data], columns=columns_input)
 
         data.to_csv(csv_filename, index=False)
         print(f"New CSV file '{csv_filename}' created with the new data.")
@@ -55,7 +55,8 @@ def find_forks_and_append(repo_owner, repo_name):
             break
 
         for fork in forks_data:
-            append_data_to_csv([fork['owner']['login'], fork['ssh_url'], fork['created_at']], f'{repo_owner}_{repo_name}_forks.csv')
+            append_data_to_csv([fork['owner']['login'], fork['ssh_url'], fork['created_at']], f'{repo_owner}_{repo_name}_forks.csv',
+                               ['Owner', 'SSH URL', 'Created At'])
 
         page += 1
 

@@ -6,26 +6,16 @@ import time
 import pandas as pd
 import csv
 import os
+import GrabForkData
 
 GITHUB_TOKEN = "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"
 GITHUB_AUTH_HEADER = {
     'authorization': "token {0}".format(GITHUB_TOKEN),
 }
-
-def save_to_csv(pull_requests, username, repository):
-    key_list = list(pull_requests[0].keys())
-    csv_path = '../data/pr_history_'
-    csv_path_name = csv_path + username + '_' + repository + '.csv'
-    with open(csv_path_name, 'w', encoding="utf-8", newline='') as f:  # You will need 'wb' mode in Python 2.x
-        w = csv.DictWriter(f, key_list)
-        w.writeheader()
-        for row_pr in pull_requests:
-            w.writerow(row_pr)
-    return True
+CSV_PATH = '../data/'
 
 def _get_pull_request_history_data(username, repo_name):
     session = requests.Session()
-    #github_endpoint = "https://api.github.com/search/issues?q=repo%3A{}%2F{}&type=pullrequests&page=1"
     github_endpoint = "https://api.github.com/repos/{}/{}/pulls?state=all&per_page=100"
     endpoint = github_endpoint.format(username, repo_name)
     print(endpoint)
@@ -36,7 +26,7 @@ def _get_pull_request_history_data(username, repo_name):
     next_page = first_page
 
     while _get_next_page(next_page) is not None:
-        time.sleep(2)
+        time.sleep(1)
         try:
             next_page_url = next_page.links['next']['url']
             next_page = session.get(next_page_url, headers=GITHUB_AUTH_HEADER)
@@ -50,21 +40,27 @@ def _get_next_page(page):
     return page if page.headers.get('link') is not None else None
 
 def get_pull_requests(username, repository):
-    pull_request_list = []
+    columns_in = ['user', 'url', 'issue_url', 'state', 'created_at', 'updated_at', 'merged_at', 'merge_commit_sha']
 
     for page in _get_pull_request_history_data(username, repository):
-        content = json.loads(page.content)
-        pull_request_list.append(content)
-
-    pull_requests = []
-    for pr_page in pull_request_list:
+        pr_page = json.loads(page.content)
+        page_pr = []
         for pr_instance in pr_page:
-            pull_requests.append(pr_instance)
-    [pr.pop('body') for pr in pull_requests]
-
-    save_to_csv(pull_requests, username, repository)
+            pr_instance_data = []
+            for col in columns_in:
+                if col in pr_instance.keys():
+                    if col == 'user':
+                        pr_instance_data.append(pr_instance[col]['login'])
+                        continue
+                    pr_instance_data.append(pr_instance[col])
+            page_pr.append(pr_instance_data)
+        page_pr = list(map(list, zip(*page_pr))) # to transpose
+        print(page_pr)
+        GrabForkData.append_data_to_csv(page_pr,
+                                            f'{CSV_PATH}pr_history_{username}_{repository}.csv',
+                                            columns_in)
 
 if __name__ == "__main__":
     username, repository = "mozilla", "shumway"
-    # username, repository = "EvanLi", "Github-Ranking"
+    #username, repository = "EvanLi", "Github-Ranking"
     get_pull_requests(username, repository)
