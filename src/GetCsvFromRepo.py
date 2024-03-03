@@ -135,7 +135,7 @@ def run_by_gql(num_of_repo_per_lang, languages, search_param, sort_param):
 if __name__ == "__main__":
     languages = ["ActionScript", "C", "CSharp", "CPP", "CoffeeScript", "Dart", "Go", "Java", "JavaScript",
                  "Objective-C", "Python", "PHP", "R", "Swift", "TypeScript"]
-    num_of_repo_per_lang = 50
-    search_param = "stars:>10"
+    num_of_repo_per_lang = 1000
+    search_param = "stars:>20"
     sort_param = "sort:stars-asc"
     run_by_gql(num_of_repo_per_lang, languages, search_param, sort_param)
