@@ -73,6 +73,5 @@ def get_pull_requests(username, repository):
     write_header_flag = True
 
 if __name__ == "__main__":
-    username, repository = "mozilla", "shumway"
-    #username, repository = "EvanLi", "Github-Ranking"
+    username, repository = "EvanLi", "Github-Ranking"
     get_pull_requests(username, repository)

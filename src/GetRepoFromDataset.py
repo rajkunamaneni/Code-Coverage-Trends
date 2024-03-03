@@ -30,7 +30,11 @@ def filter_github_repos(csv_file_path):
         username = item['username']
         repo_name = item['repo_name']
         domain = item['language']
-        list_of_repos.append([username, repo_name, domain])
+        stars = item['stars']
+        forks = item['forks']
+        issues = item['issues']
+        last_commit = item['last_commit']
+        list_of_repos.append([username, repo_name, domain, stars, forks, issues, last_commit])
 
     # Manually append additional repositories
     additional_repos = [
