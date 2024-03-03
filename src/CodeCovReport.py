@@ -81,10 +81,11 @@ def get_codecov_first_page(platform, username, repo_name, token_name, language):
         endpoint,
         headers=codecov_headers,
     )
-    content = json.loads(response.content)
 
-    final_list = []
     if response.status_code == 200:
+        content = json.loads(response.content)
+        final_list = []
+
         if content['count'] == 0:
             print("Repo did implement codecov but did not use it to generate code coverage reports.")
             return False
@@ -114,9 +115,13 @@ def get_codecov_total_pages(platform, username, repo_name, token_name):
         endpoint,
         headers=codecov_headers,
     )
-    content = json.loads(response.text)
 
-    return content['total_pages']
+    if response.status_code == 200:
+        content = json.loads(response.text)
+        return content['total_pages']
+    else:
+        print("codecov returned with error status:".format(response.status_code))
+        return False
 
 def get_codecov_all_builds(platform, username, repo_name, token_name, language):
     if token_name is None or token_name == "" or token_name == " ":
@@ -135,6 +140,7 @@ def get_codecov_all_builds(platform, username, repo_name, token_name, language):
         headers=codecov_headers,
         timeout=30
     )
+
     if response.status_code == 200:
         content = response.json()
     else:
@@ -163,6 +169,7 @@ def get_codecov_all_builds(platform, username, repo_name, token_name, language):
                 headers=codecov_headers,
                 timeout=250
             )
+
             if response.status_code == 200:
                 content = response.json()
             else:
@@ -195,11 +202,12 @@ def get_codecov_build(platform, username, repo_name, token_name, sha_value, lang
         endpoint,
         headers=codecov_headers,
     )
-    content = json.loads(response.text)
-    if commit_build := __get_codecov_commit_from_sha(content, sha_value, username, repo_name, language):
-        return commit_build
 
     if response.status_code == 200:
+        content = json.loads(response.text)
+        if commit_build := __get_codecov_commit_from_sha(content, sha_value, username, repo_name, language):
+            return commit_build
+
         commit = None
         if content['count'] == 0:
             print("Repo did implement codecov but did not use it to generate code coverage reports.")
@@ -215,8 +223,13 @@ def get_codecov_build(platform, username, repo_name, token_name, sha_value, lang
                 next_page_url,
                 headers=codecov_headers,
             )
-            content = json.loads(response.text)
-            next_page_url = content['next']
+
+            if response.status_code == 200:
+                content = json.loads(response.text)
+                next_page_url = content['next']
+            else:
+                print("error with pagination:".format(response.status_code))
+                return False
 
         if commit_build := __get_codecov_commit_from_sha(content, sha_value, username, repo_name, language):
             return commit_build
