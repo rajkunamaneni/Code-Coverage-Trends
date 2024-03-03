@@ -11,7 +11,6 @@ GITHUB_TOKEN = "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"
 GITHUB_AUTH_HEADER = {
     'authorization': "token {0}".format(GITHUB_TOKEN),
 }
-CSV_PATH = '../data/'
 write_header_flag = True
 
 def append_data_to_csv(pull_requests, csv_filename, columns_input):
@@ -51,7 +50,7 @@ def _get_pull_request_history_data(username, repo_name):
 def _get_next_page(page):
     return page if page.headers.get('link') is not None else None
 
-def get_pull_requests(username, repository):
+def get_pull_requests(csv_path, username, repository):
     global write_header_flag
     columns_in = ['user', 'url', 'issue_url', 'state', 'created_at', 'updated_at', 'merged_at', 'merge_commit_sha']
 
@@ -69,9 +68,9 @@ def get_pull_requests(username, repository):
             page_pr.append(pr_instance_data)
         page_pr = list(map(list, zip(*page_pr))) # to transpose
         page_pr_dict = [dict(zip(columns_in, item)) for item in zip(*page_pr)] # convert to dict from list of keys and  values
-        append_data_to_csv(page_pr_dict, f'{CSV_PATH}pr_history_{username}_{repository}.csv',columns_in)
+        append_data_to_csv(page_pr_dict, f'{csv_path}pr_history_{username}_{repository}.csv',columns_in)
     write_header_flag = True
 
 if __name__ == "__main__":
-    username, repository = "EvanLi", "Github-Ranking"
-    get_pull_requests(username, repository)
+    username, repository = "mozilla", "shumway"
+    get_pull_requests('../data/', username, repository)
