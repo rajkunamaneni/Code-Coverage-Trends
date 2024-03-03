@@ -1,3 +1,4 @@
+platform,username,repo_name,codecov_used,coverall_used,language
 github,oozcitak,xmlbuilder-js,False,True,CoffeeScript
 github,buttercoin,buttercoin,False,True,CoffeeScript
 github,snd,url-pattern,True,False,CoffeeScript

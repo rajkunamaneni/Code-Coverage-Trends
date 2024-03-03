@@ -1,3 +1,4 @@
+platform,username,repo_name,codecov_used,coverall_used,language
 github,php,php-src,True,True,C
 github,curl,curl,True,True,C
 github,openssl,openssl,False,True,C
