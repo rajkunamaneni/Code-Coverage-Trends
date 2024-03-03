@@ -357,8 +357,8 @@ def get_coverall_all_builds(platform, username, repo_name, language):
 
 def detect_coverage_tool_usage(platform, username, repo_name, codecov_API_token, language):
     with disablePrintOutput():
-        codecov_used = bool(get_codecov_first_page(platform, username, repo_name, codecov_API_token, language))
-        coverall_used = bool(get_coverall_oldest_build(platform, username, repo_name, language))
+        codecov_used = bool(get_codecov_first_page(str(platform), str(username), str(repo_name), codecov_API_token, str(language)))
+        coverall_used = bool(get_coverall_oldest_build(str(platform), str(username), str(repo_name), str(language)))
 
     if codecov_used or coverall_used:
         return [platform, username, repo_name, codecov_used, coverall_used, language]

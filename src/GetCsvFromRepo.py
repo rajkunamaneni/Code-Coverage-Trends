@@ -5,7 +5,9 @@ from Graphql import get_graphql_data
 import inspect
 
 class ProcessorGQL(object):
-    def __init__(self, bulk_count_in, bulk_size_in, languages):
+    def __init__(self, bulk_count_in, bulk_size_in, languages, search_param, sort_param):
+        self.search_param = search_param
+        self.sort_param = sort_param
         self.gql_format = """query{
     search(query: "%s", type: REPOSITORY, first:%d %s) {
       pageInfo { endCursor }
@@ -38,7 +40,8 @@ class ProcessorGQL(object):
         """
         self.bulk_count = bulk_count_in
         self.bulk_size = bulk_size_in
-        self.gql_stars_lang = self.gql_format % ("language:%s stars:>0 sort:stars", self.bulk_size, "%s")
+        string_val = f"language:%s {self.search_param} {self.sort_param}"
+        self.gql_stars_lang = self.gql_format % (string_val, self.bulk_size, "%s")
         self.languages = languages
 
     @staticmethod
@@ -65,16 +68,19 @@ class ProcessorGQL(object):
         repos = []
         for i in range(0, self.bulk_count):
             repos_gql = get_graphql_data(qql % cursor)
-            cursor = ', after:"' + repos_gql["data"]["search"]["pageInfo"]["endCursor"] + '"'
-            repos += self.parse_gql_result(repos_gql)
+            pageInfoEndCursor = repos_gql["data"]["search"]["pageInfo"]["endCursor"]
+
+            if pageInfoEndCursor is not None:
+                cursor = ', after:"' + pageInfoEndCursor + '"'
+                repos += self.parse_gql_result(repos_gql)
         return repos
 
     def get_all_repos(self):
         repos_languages = {}
         for lang in self.languages:
-            print("Get most stars repos of {}...".format(lang))
+            print("Getting repos of {}...".format(lang))
             repos_languages[lang] = self.get_repos(self.gql_stars_lang % (lang, '%s'))
-            print("Get most stars repos of {} success!".format(lang))
+            print("Getting repos of {} success!".format(lang))
         return repos_languages
 
 class WriteFile(object):
@@ -98,7 +104,7 @@ class WriteFile(object):
             repos_list.append(repo_info)
         return pd.DataFrame(repos_list, columns=self.col)
 
-    def save_to_csv(self):
+    def save_to_csv(self, processor):
         df_all = pd.DataFrame(columns=self.col)
         for repo in self.repo_list:
             df_repos = self.repo_to_df(repos=repo["data"], item=repo["item"])
@@ -109,24 +115,27 @@ class WriteFile(object):
 
         num_of_repo_per_lang = self.bulk_count * self.bulk_size
         csv_path = '../data/Data/github-ranking-'
-        csv_path_name = csv_path + save_date + '_' + str(num_of_repo_per_lang) + '.csv'
+        search_param_filename = str(processor.search_param).translate({ord(c): None for c in '\/:*?<>|'})
+        sort_param_filename = str(processor.sort_param).translate({ord(c): None for c in '\/:*?<>|'})
+
+        csv_path_name = csv_path + save_date + '_' + str(num_of_repo_per_lang) + '_' \
+                        + search_param_filename + '_' + sort_param_filename + '.csv'
         df_all.to_csv(csv_path_name, index=False, encoding='utf-8')
         print('Saved repository data to: ' + csv_path_name)
 
-def run_by_gql(num_of_repo_per_lang, languages):
+def run_by_gql(num_of_repo_per_lang, languages, search_param, sort_param):
     bulk_size = 50
     bulk_count = int(num_of_repo_per_lang / bulk_size)
 
-    ROOT_PATH = os.path.abspath(os.path.join(__file__, "../../"))
-    os.chdir(os.path.join(ROOT_PATH, 'source'))
-
-    processor = ProcessorGQL(bulk_count, bulk_size, languages)
+    processor = ProcessorGQL(bulk_count, bulk_size, languages, search_param, sort_param)
     repos_languages = processor.get_all_repos()
     wt_obj = WriteFile(repos_languages, bulk_count, bulk_size, languages)
-    wt_obj.save_to_csv()
+    wt_obj.save_to_csv(processor)
 
 if __name__ == "__main__":
     languages = ["ActionScript", "C", "CSharp", "CPP", "CoffeeScript", "Dart", "Go", "Java", "JavaScript",
                  "Objective-C", "Python", "PHP", "R", "Swift", "TypeScript"]
     num_of_repo_per_lang = 50
-    run_by_gql(num_of_repo_per_lang, languages)
+    search_param = "stars:>10"
+    sort_param = "sort:stars-asc"
+    run_by_gql(num_of_repo_per_lang, languages, search_param, sort_param)
