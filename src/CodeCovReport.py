@@ -143,12 +143,7 @@ def get_codecov_all_builds(platform, username, repo_name, token_name, language):
 
     if response.status_code == 200:
         content = response.json()
-    else:
-        print("Failed to fetch data from codecov endpoint.")
-        return None
-    codecov_commit_list = []
-
-    if response.status_code == 200:
+        codecov_commit_list = []
         commit = None
         page_num = 0
 
