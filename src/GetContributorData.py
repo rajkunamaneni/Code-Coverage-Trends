@@ -32,4 +32,6 @@ def append_data_to_csv(dataframe, csv_filename):
         print("CSV file not found. Creating a new CSV file...")
         dataframe.to_csv(csv_filename, index=False)
         print(f"New CSV file '{csv_filename}' created with the new data.")
-#get_contributor_counts("flutter","flutter",'https://github.com/flutter/flutter.git')
+
+if __name__ == "__main__":
+    get_contributor_counts("flutter","flutter",'https://github.com/flutter/flutter.git')
