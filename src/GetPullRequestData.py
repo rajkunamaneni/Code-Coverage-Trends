@@ -15,10 +15,9 @@ GITHUB_AUTH_HEADER = {
     'authorization': "token {0}".format(GITHUB_TOKEN),
 }
 
-
 def append_data_to_csv(pull_requests, csv_filename, columns_input):
 
-    with open(csv_filename, 'a', encoding="utf-8", newline='') as f:  # You will need 'wb' mode in Python 2.x
+    with open(csv_filename, 'a', encoding="utf-8", newline='') as f:
         w = csv.DictWriter(f, columns_input)
         if globalvar.write_header_flag is True:
             w.writeheader()
