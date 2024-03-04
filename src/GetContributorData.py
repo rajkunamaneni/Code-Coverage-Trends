@@ -1,4 +1,7 @@
-def get_contributor_counts(repo_name,repo_owner,repo_link):    
+import pandas as pd
+from pydriller import Repository
+
+def get_contributor_counts(repo_name,repo_owner,repo_link):
     authors = []
     dates = []
     for commit in Repository(repo_link).traverse_commits():
@@ -29,4 +32,4 @@ def append_data_to_csv(dataframe, csv_filename):
         print("CSV file not found. Creating a new CSV file...")
         dataframe.to_csv(csv_filename, index=False)
         print(f"New CSV file '{csv_filename}' created with the new data.")
-get_contributor_counts("flutter","flutter",'https://github.com/flutter/flutter.git')
+#get_contributor_counts("flutter","flutter",'https://github.com/flutter/flutter.git')

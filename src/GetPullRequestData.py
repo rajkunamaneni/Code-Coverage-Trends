@@ -7,6 +7,8 @@ import pandas as pd
 import csv
 import os
 import GlobalVarSetting as globalvar
+import itertools
+import GetContributorData
 
 GITHUB_TOKEN = "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"
 GITHUB_AUTH_HEADER = {
@@ -52,6 +54,7 @@ def _get_next_page(page):
 
 def get_pull_requests(csv_path, username, repository):
     columns_in = ['user', 'url', 'issue_url', 'state', 'created_at', 'updated_at', 'merged_at', 'merge_commit_sha']
+    all_pr_dict = []
 
     for page in _get_pull_request_history_data(username, repository):
         pr_page = json.loads(page.content)
@@ -66,10 +69,34 @@ def get_pull_requests(csv_path, username, repository):
                     pr_instance_data.append(pr_instance[col])
             page_pr.append(pr_instance_data)
         page_pr = list(map(list, zip(*page_pr))) # to transpose
-        page_pr_dict = [dict(zip(columns_in, item)) for item in zip(*page_pr)] # convert to dict from list of keys and  values
-        append_data_to_csv(page_pr_dict, f'{csv_path}pr_history_{username}_{repository}.csv',columns_in)
+        page_pr_dict = [dict(zip(columns_in, item)) for item in zip(*page_pr)] # convert to dict from list of keys and values
+        all_pr_dict.append(page_pr_dict)
+    merged_all_pr_dict = list(itertools.chain.from_iterable(all_pr_dict)) # flatten the list of dictionaries
+    #append_data_to_csv(merged_all_pr_dict, f'{csv_path}pr_history_{username}_{repository}.csv',columns_in)
+
+    for idx, repo_dict_instance in enumerate(merged_all_pr_dict):
+        created_at = repo_dict_instance['created_at']
+        if created_at is not None:
+            merged_all_pr_dict[idx]['created_at'] = created_at.split('T', 1)[0]
+
+        updated_at = repo_dict_instance['updated_at']
+        if updated_at is not None:
+            merged_all_pr_dict[idx]['updated_at'] = updated_at.split('T', 1)[0]
+
+        merged_at = repo_dict_instance['merged_at']
+        if merged_at is not None:
+            merged_all_pr_dict[idx]['merged_at'] = merged_at.split('T', 1)[0]
+    globalvar.write_header_flag = True
+    #append_data_to_csv(merged_all_pr_dict, f'{csv_path}pr_history_time_rm_{username}_{repository}.csv', columns_in)
+    append_data_to_csv(merged_all_pr_dict, f'{csv_path}pr_history_{username}_{repository}.csv', columns_in)
+
+    df_prs = pd.DataFrame(merged_all_pr_dict)
+    df_prs_per_day = df_prs.groupby(["created_at"]).size().reset_index(name="pull_requests")
+
+    GetContributorData.append_data_to_csv(df_prs_per_day, f'{csv_path}prs_per_day_{username}_{repository}.csv')
     globalvar.write_header_flag = True
 
 if __name__ == "__main__":
+    username, repository = "EvanLi", "Github-Ranking"
     username, repository = "mozilla", "shumway"
     get_pull_requests('../data/', username, repository)
