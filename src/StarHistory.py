@@ -31,7 +31,7 @@ def get_star_data(username, repo_name, dates):
     params = {"repo": f"{username}/{repo_name}"}
 
     # Make the GET request with certificate verification
-    response = requests.get(base_url, params=params, headers=headers, verify=True, timeout=200)
+    response = requests.get(base_url, params=params, headers=headers, verify=True, timeout=300)
 
     # Check if the request was successful (status code 200)
     if response.status_code == 200:
@@ -42,13 +42,14 @@ def get_star_data(username, repo_name, dates):
             print("Failed to fetch data. Issue occur.")
             return None
         # Initialize result with provided dates
-        result = [[date, None] for date in dates]
+        result = [[date, None, None] for date in dates]
         # Update star counts if available
         for item in data['stars']:
             if item[0] in dates:
                 # Find the index of the date in result list and update its star count
                 idx = dates.index(item[0])
-                result[idx][1] = item[2]
+                result[idx][1] = item[1]
+                result[idx][2] = item[2]
         return result
         
     else:
@@ -113,8 +114,8 @@ def get_daily_star_data(username, repo_name, dates):
 
 if __name__ == "__main__":
     # Example usage
-    repository_names = [["flutter", "flutter"], ["tensorflow", "tensorflow"], ["facebook", "react"]]
-    dates = ["06-03-2015", "16-01-2024", "15-02-2024", "17-02-2024"]
+    repository_names = [["php","php-src"], ["tensorflow", "tensorflow"], ["facebook", "react"]]
+    dates = ["03-02-2024", "16-01-2024", "15-02-2024", "17-02-2024"]
 
     for repo_name in repository_names:
         repo = f"{repo_name[0]}/{repo_name[1]}" #username/repo_name path
@@ -125,7 +126,7 @@ if __name__ == "__main__":
         print()
 
     # Example usage
-    print(DateUtil.format_dates('2020-01-06T13:03:15.666470Z'))
+    # print(DateUtil.format_dates('2020-01-06T13:03:15.666470Z'))
 
     # output = get_star_data('rajkunamaneni', 'TrafficDetector', ["06-03-2015", "16-01-2024", "15-02-2024", "17-02-2024"])
     # print(output)
