@@ -8,8 +8,9 @@ import csv
 import os
 import GlobalVarSetting as globalvar
 import itertools
-import GetContributorData
-MAX_RETRIES = 20
+from urllib3.exceptions import NewConnectionError
+from urllib3.util.retry import Retry
+
 GITHUB_TOKEN = "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"
 user_agent_desktop = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '\
 'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 '\
@@ -19,6 +20,8 @@ GITHUB_AUTH_HEADER = {
     'authorization': "token {0}".format(GITHUB_TOKEN),
     'User-Agent': user_agent_desktop
 }
+ERR_WAIT_TIME = 30
+API_CALL_WAIT_TIME = 1
 
 def write_data_to_csv(pull_requests, csv_filename, columns_input):
 
@@ -31,33 +34,54 @@ def write_data_to_csv(pull_requests, csv_filename, columns_input):
             w.writerow(row_pr)
     return True
 
+def write_df_data_to_csv(dataframe, csv_filename):
+    dataframe.to_csv(csv_filename, index=False)
+    print(f"New CSV file '{csv_filename}' created with the new data.")
+
+def _get_from_page(session, next_page_url):
+    while True:
+        try:
+            next_page_hold = session.get(next_page_url, headers=GITHUB_AUTH_HEADER, timeout=30)
+            return next_page_hold
+        except (requests.ConnectionError, NewConnectionError) as e:
+            print(f"Waiting for connection, sleep: {ERR_WAIT_TIME}, error: {e}")
+            time.sleep(ERR_WAIT_TIME)
+            pass
+
+def _get_next_page(page):
+    while True:
+        try:
+            return page if page.headers.get('link') is not None else None
+        except (requests.ConnectionError, NewConnectionError) as e:
+            print(f"Waiting for connection, sleep: {ERR_WAIT_TIME}, error: {e}")
+            time.sleep(ERR_WAIT_TIME)
+            pass
+
 def _get_pull_request_history_data(username, repo_name):
     session = requests.Session()
-    adapter = requests.adapters.HTTPAdapter(max_retries=MAX_RETRIES)
+    retry = Retry(total=False, backoff_factor=10)
+    adapter = requests.adapters.HTTPAdapter(max_retries=retry)
     session.mount('https://', adapter)
     session.mount('http://', adapter)
     github_endpoint = "https://api.github.com/repos/{}/{}/pulls?state=all&per_page=100"
     endpoint = github_endpoint.format(username, repo_name)
     print(endpoint)
 
-    first_page = session.get(endpoint, headers=GITHUB_AUTH_HEADER, timeout=30)
+    first_page = _get_from_page(session, endpoint)
     yield first_page
 
     next_page = first_page
 
     while _get_next_page(next_page) is not None:
-        time.sleep(1)
+        time.sleep(API_CALL_WAIT_TIME)
         try:
             next_page_url = next_page.links['next']['url']
-            next_page = session.get(next_page_url, headers=GITHUB_AUTH_HEADER, timeout=30)
+            next_page = _get_from_page(session, next_page_url)
             yield next_page
             print(next_page_url)
         except KeyError:
             logging.info("No more Github pages")
             break
-
-def _get_next_page(page):
-    return page if page.headers.get('link') is not None else None
 
 def get_pull_requests(csv_path, username, repository):
     columns_in = ['user', 'url', 'issue_url', 'state', 'created_at', 'updated_at', 'merged_at', 'merge_commit_sha']
@@ -79,7 +103,6 @@ def get_pull_requests(csv_path, username, repository):
             page_pr_dict = [dict(zip(columns_in, item)) for item in zip(*page_pr)] # convert to dict from list of keys and values
             all_pr_dict.append(page_pr_dict)
         merged_all_pr_dict = list(itertools.chain.from_iterable(all_pr_dict)) # flatten the list of dictionaries
-        #append_data_to_csv(merged_all_pr_dict, f'{csv_path}pr_history_{username}_{repository}.csv',columns_in)
 
         for idx, repo_dict_instance in enumerate(merged_all_pr_dict):
             created_at = repo_dict_instance['created_at']
@@ -100,7 +123,7 @@ def get_pull_requests(csv_path, username, repository):
         df_prs = pd.DataFrame(merged_all_pr_dict)
         df_prs_per_day = df_prs.groupby(["created_at"]).size().reset_index(name="pull_requests")
 
-        GetContributorData.append_data_to_csv(df_prs_per_day, f'{csv_path}prs_per_day_{username}_{repository}.csv')
+        write_df_data_to_csv(df_prs_per_day, f'{csv_path}prs_per_day_{username}_{repository}.csv')
         globalvar.write_header_flag = True
     except ValueError:
         print(f'Decoding JSON failed for repo, skipping: {username}/{repository}')
