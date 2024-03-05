@@ -23,8 +23,17 @@ GITHUB_AUTH_HEADER = {
 ERR_WAIT_TIME = 30
 API_CALL_WAIT_TIME = 1
 
-def write_data_to_csv(pull_requests, csv_filename, columns_input):
+def transpose_page(page_pr):
+    return list(map(list, zip(*page_pr)))
 
+def convert_to_dict_from_list(columns_in, page_pr):
+    return [dict(zip(columns_in, item)) for item in
+                    zip(*page_pr)]
+
+def flatten_list_dict(all_pr_dict):
+    return list(itertools.chain.from_iterable(all_pr_dict))
+
+def write_data_to_csv(pull_requests, csv_filename, columns_input):
     with open(csv_filename, 'w', encoding="utf-8", newline='') as f:
         w = csv.DictWriter(f, columns_input)
         if globalvar.write_header_flag is True:
@@ -83,46 +92,53 @@ def _get_pull_request_history_data(username, repo_name):
             logging.info("No more Github pages")
             break
 
+def process_json_page_to_list_of_dict_per_page(columns_in, page):
+    pr_page = json.loads(page.content)
+    page_pr = []
+    for pr_instance in pr_page:
+        pr_instance_data = []
+        for col in columns_in:
+            if col in pr_instance.keys():
+                if col == 'user':
+                    pr_instance_data.append(pr_instance[col]['login'])
+                    continue
+                pr_instance_data.append(pr_instance[col])
+        page_pr.append(pr_instance_data)
+
+    page_pr = transpose_page(page_pr)
+    page_pr_dict = convert_to_dict_from_list(columns_in, page_pr)
+    return page_pr_dict
+
+def strip_time_from_pr_row_entry(merged_all_pr_dict):
+    for idx, repo_dict_instance in enumerate(merged_all_pr_dict):
+        created_at = repo_dict_instance['created_at']
+        if created_at is not None:
+            merged_all_pr_dict[idx]['created_at'] = created_at.split('T', 1)[0]
+
+        updated_at = repo_dict_instance['updated_at']
+        if updated_at is not None:
+            merged_all_pr_dict[idx]['updated_at'] = updated_at.split('T', 1)[0]
+
+        merged_at = repo_dict_instance['merged_at']
+        if merged_at is not None:
+            merged_all_pr_dict[idx]['merged_at'] = merged_at.split('T', 1)[0]
+
 def get_pull_requests(csv_path, username, repository):
     columns_in = ['user', 'url', 'issue_url', 'state', 'created_at', 'updated_at', 'merged_at', 'merge_commit_sha']
     all_pr_dict = []
     try:
         for page in _get_pull_request_history_data(username, repository):
-            pr_page = json.loads(page.content)
-            page_pr = []
-            for pr_instance in pr_page:
-                pr_instance_data = []
-                for col in columns_in:
-                    if col in pr_instance.keys():
-                        if col == 'user':
-                            pr_instance_data.append(pr_instance[col]['login'])
-                            continue
-                        pr_instance_data.append(pr_instance[col])
-                page_pr.append(pr_instance_data)
-            page_pr = list(map(list, zip(*page_pr))) # to transpose
-            page_pr_dict = [dict(zip(columns_in, item)) for item in zip(*page_pr)] # convert to dict from list of keys and values
-            all_pr_dict.append(page_pr_dict)
-        merged_all_pr_dict = list(itertools.chain.from_iterable(all_pr_dict)) # flatten the list of dictionaries
+            processed_dict = process_json_page_to_list_of_dict_per_page(columns_in, page)
+            all_pr_dict.append(processed_dict)
+        merged_all_pr_dict = flatten_list_dict(all_pr_dict)
 
-        for idx, repo_dict_instance in enumerate(merged_all_pr_dict):
-            created_at = repo_dict_instance['created_at']
-            if created_at is not None:
-                merged_all_pr_dict[idx]['created_at'] = created_at.split('T', 1)[0]
+        strip_time_from_pr_row_entry(merged_all_pr_dict)
 
-            updated_at = repo_dict_instance['updated_at']
-            if updated_at is not None:
-                merged_all_pr_dict[idx]['updated_at'] = updated_at.split('T', 1)[0]
-
-            merged_at = repo_dict_instance['merged_at']
-            if merged_at is not None:
-                merged_all_pr_dict[idx]['merged_at'] = merged_at.split('T', 1)[0]
         globalvar.write_header_flag = True
-        #append_data_to_csv(merged_all_pr_dict, f'{csv_path}pr_history_time_rm_{username}_{repository}.csv', columns_in)
         write_data_to_csv(merged_all_pr_dict, f'{csv_path}pr_history_{username}_{repository}.csv', columns_in)
 
         df_prs = pd.DataFrame(merged_all_pr_dict)
         df_prs_per_day = df_prs.groupby(["created_at"]).size().reset_index(name="pull_requests")
-
         write_df_data_to_csv(df_prs_per_day, f'{csv_path}prs_per_day_{username}_{repository}.csv')
         globalvar.write_header_flag = True
     except ValueError:
