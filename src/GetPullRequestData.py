@@ -20,9 +20,9 @@ GITHUB_AUTH_HEADER = {
     'User-Agent': user_agent_desktop
 }
 
-def append_data_to_csv(pull_requests, csv_filename, columns_input):
+def write_data_to_csv(pull_requests, csv_filename, columns_input):
 
-    with open(csv_filename, 'a', encoding="utf-8", newline='') as f:
+    with open(csv_filename, 'w', encoding="utf-8", newline='') as f:
         w = csv.DictWriter(f, columns_input)
         if globalvar.write_header_flag is True:
             w.writeheader()
@@ -95,7 +95,7 @@ def get_pull_requests(csv_path, username, repository):
                 merged_all_pr_dict[idx]['merged_at'] = merged_at.split('T', 1)[0]
         globalvar.write_header_flag = True
         #append_data_to_csv(merged_all_pr_dict, f'{csv_path}pr_history_time_rm_{username}_{repository}.csv', columns_in)
-        append_data_to_csv(merged_all_pr_dict, f'{csv_path}pr_history_{username}_{repository}.csv', columns_in)
+        write_data_to_csv(merged_all_pr_dict, f'{csv_path}pr_history_{username}_{repository}.csv', columns_in)
 
         df_prs = pd.DataFrame(merged_all_pr_dict)
         df_prs_per_day = df_prs.groupby(["created_at"]).size().reset_index(name="pull_requests")
