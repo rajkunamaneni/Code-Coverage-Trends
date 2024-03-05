@@ -50,7 +50,7 @@ def write_df_data_to_csv(dataframe, csv_filename):
 def _get_from_page(session, next_page_url):
     while True:
         try:
-            next_page_hold = session.get(next_page_url, headers=GITHUB_AUTH_HEADER, timeout=30)
+            next_page_hold = session.get(next_page_url, headers=GITHUB_AUTH_HEADER)
             return next_page_hold
         except (requests.ConnectionError, NewConnectionError) as e:
             print(f"Waiting for connection, sleep: {ERR_WAIT_TIME}, error: {e}")
