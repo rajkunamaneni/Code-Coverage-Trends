@@ -19,9 +19,10 @@ def merge_csv_pop_report():
 
     pop_report_csv_file_list = glob.glob(os.path.join(pop_report_csv_path, "*.csv"))
     pr_history_csv_file_list = glob.glob(os.path.join(pr_history_csv_path, "*.csv"))
+    new_prefix = 'WithPr_'
 
     for pop_report_csv_file in pop_report_csv_file_list:
-        if pop_file_suffix in pop_report_csv_file:
+        if (pop_file_suffix in pop_report_csv_file) and (new_prefix not in pop_report_csv_file):
             pop_csv_df_original = pd.read_csv(pop_report_csv_file)
             pop_csv_df_original['Pull Requests on Timestamp'] = 0
             pop_csv_dict_of_df = pop_csv_df_original.to_dict('records')
@@ -58,11 +59,12 @@ def merge_csv_pop_report():
                                     break
             original_csv_name = os.path.basename(pop_report_csv_file)
             new_pop_csv_dict_of_df_keys = pop_csv_dict_of_df[0].keys()
-            csv_file_with_append_pr_count = f'{pop_report_csv_path}/WithPr_{original_csv_name}'
+            csv_file_with_append_pr_count = f'{pop_report_csv_path}/{new_prefix}{original_csv_name}'
             new_path_csv_output = csv_file_with_append_pr_count.replace(os.sep, '/')
             with open(new_path_csv_output, 'w', newline='') as out_file:
                 dict_writer = csv.DictWriter(out_file, new_pop_csv_dict_of_df_keys)
                 dict_writer.writeheader()
                 dict_writer.writerows(pop_csv_dict_of_df)
+            print(f"Merged Pull Request Count CSV file done: {new_path_csv_output}")
 if __name__ == "__main__":
     merge_csv_pop_report()
