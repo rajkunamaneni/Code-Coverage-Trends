@@ -33,24 +33,28 @@ def merge_csv_pop_report():
                     pop_csv_dict_of_df[idx]['Timestamp'] = timestamp.split('T', 1)[0]
 
             for pr_csv_file in pr_history_csv_file_list:
-                if pr_file_prefix in pr_csv_file:
-                    pr_csv_df = pd.read_csv(pr_csv_file)
-                    pr_csv_filename = os.path.basename(pr_csv_file)
-                    pr_csv_filename_no_prefix = pr_csv_filename.removeprefix('prs_per_day_')
-                    pr_csv_filename_no_suffix = pr_csv_filename_no_prefix.removesuffix('.csv')
-                    [username, repository] = pr_csv_filename_no_suffix.split('_')
+                try:
+                    if pr_file_prefix in pr_csv_file:
+                        pr_csv_df = pd.read_csv(pr_csv_file)
+                        pr_csv_filename = os.path.basename(pr_csv_file)
+                        pr_csv_filename_no_prefix = pr_csv_filename.removeprefix('prs_per_day_')
+                        pr_csv_filename_no_suffix = pr_csv_filename_no_prefix.removesuffix('.csv')
+                        [username, repository] = pr_csv_filename_no_suffix.split('_')
 
-                    pr_count_aligned_date_list = []
-                    for idx, pop_date_commit_dict_inst in enumerate(pop_csv_dict_of_df):
-                        if (pop_date_commit_dict_inst['Username'] == username) \
-                                and (pop_date_commit_dict_inst['Repository'] == repository):
+                        pr_count_aligned_date_list = []
+                        for idx, pop_date_commit_dict_inst in enumerate(pop_csv_dict_of_df):
+                            if (pop_date_commit_dict_inst['Username'] == username) \
+                                    and (pop_date_commit_dict_inst['Repository'] == repository):
 
-                            for created_at_pr_row, pull_requests_pr_row in \
-                                    zip(pr_csv_df['created_at'].values, pr_csv_df['pull_requests'].values):
-                                if pop_date_commit_dict_inst['Timestamp'] == created_at_pr_row:
-                                    pop_csv_dict_of_df[idx]['Pull Requests on Timestamp'] = pull_requests_pr_row
-                                    break
-
+                                for created_at_pr_row, pull_requests_pr_row in \
+                                        zip(pr_csv_df['created_at'].values, pr_csv_df['pull_requests'].values):
+                                    if pop_date_commit_dict_inst['Timestamp'] == created_at_pr_row:
+                                        pop_csv_dict_of_df[idx]['Pull Requests on Timestamp'] = pull_requests_pr_row
+                                        break
+                except ValueError:
+                    print(f'repo used bad naming practices, skipping: {pr_csv_file}')
+                    pass
+                
             original_csv_name = os.path.basename(pop_report_csv_file)
             new_pop_csv_dict_of_df_keys = pop_csv_dict_of_df[0].keys()
             csv_file_with_append_pr_count = f'{pop_report_csv_path}/{new_prefix}{original_csv_name}'
