@@ -52,7 +52,8 @@ def _get_from_page(session, next_page_url):
         try:
             next_page_hold = session.get(next_page_url, headers=GITHUB_AUTH_HEADER)
             return next_page_hold
-        except (requests.ConnectionError, NewConnectionError) as e:
+        except (requests.ConnectionError, NewConnectionError, requests.exceptions.ChunkedEncodingError,
+                requests.exceptions.ContentDecodingError, requests.exceptions.ConnectionError) as e:
             print(f"Waiting for connection, sleep: {ERR_WAIT_TIME}, error: {e}")
             time.sleep(ERR_WAIT_TIME)
             pass
@@ -61,7 +62,8 @@ def _get_next_page(page):
     while True:
         try:
             return page if page.headers.get('link') is not None else None
-        except (requests.ConnectionError, NewConnectionError) as e:
+        except (requests.ConnectionError, NewConnectionError, requests.exceptions.ChunkedEncodingError,
+                requests.exceptions.ContentDecodingError, requests.exceptions.ConnectionError) as e:
             print(f"Waiting for connection, sleep: {ERR_WAIT_TIME}, error: {e}")
             time.sleep(ERR_WAIT_TIME)
             pass
