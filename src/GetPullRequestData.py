@@ -84,7 +84,6 @@ def _get_pull_request_history_data(username, repo_name):
     next_page = first_page
 
     while _get_next_page(next_page) is not None:
-        #time.sleep(API_CALL_WAIT_TIME)
         try:
             next_page_url = next_page.links['next']['url']
             next_page = _get_from_page(session, next_page_url)
