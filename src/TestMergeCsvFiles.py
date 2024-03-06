@@ -76,7 +76,7 @@ def merge_csv_pop_report(pop_report_csv_path, pr_history_csv_path, pop_file_suff
 if __name__ == "__main__":
     pop_report_csv_path = r'C:\Users\lenovoi7\Documents\GitHub\GitHub-Testing-Trends\data\Popularity_Reports_High_Star'
     pr_history_csv_path = r'C:\Users\lenovoi7\Documents\GitHub\GitHub-Testing-Trends\data\Pull_Request_History_High_Star_Repo'
-    pop_file_suffix = r'PopularityReport'
+    pop_file_suffix = r'Report'
     pr_file_prefix = r'prs_per_day_'
 
     merge_csv_pop_report(pop_report_csv_path, pr_history_csv_path, pop_file_suffix, pr_file_prefix)
