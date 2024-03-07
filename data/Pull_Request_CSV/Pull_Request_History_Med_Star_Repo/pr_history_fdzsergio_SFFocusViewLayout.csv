@@ -1,0 +1,4 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+Jeehut,https://api.github.com/repos/fdzsergio/SFFocusViewLayout/pulls/17,https://api.github.com/repos/fdzsergio/SFFocusViewLayout/issues/17,open,2016-12-19,2018-09-29,,c33a3f3baaf5e178da5e12694e52fad59c714849
+sstigler,https://api.github.com/repos/fdzsergio/SFFocusViewLayout/pulls/12,https://api.github.com/repos/fdzsergio/SFFocusViewLayout/issues/12,open,2016-10-09,2018-09-29,,cab8ff8ab557357b6c8acbbda1459af7176feb19
+Antondomashnev,https://api.github.com/repos/fdzsergio/SFFocusViewLayout/pulls/7,https://api.github.com/repos/fdzsergio/SFFocusViewLayout/issues/7,open,2016-06-01,2018-09-29,,c1b07c0d06ef561f494e2347672baba0e4faa17f

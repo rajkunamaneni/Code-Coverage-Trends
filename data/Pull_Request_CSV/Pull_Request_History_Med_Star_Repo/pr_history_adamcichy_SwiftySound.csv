@@ -1,0 +1,17 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+dezinezync,https://api.github.com/repos/adamcichy/SwiftySound/pulls/67,https://api.github.com/repos/adamcichy/SwiftySound/issues/67,open,2023-01-08,2023-01-08,,342f638c305e5950410512da5c05f3c538455721
+CanYouFeel,https://api.github.com/repos/adamcichy/SwiftySound/pulls/63,https://api.github.com/repos/adamcichy/SwiftySound/issues/63,open,2021-08-25,2021-08-25,,bb87ebe48f532856a34cf0958cbaafe37d04c68d
+CanYouFeel,https://api.github.com/repos/adamcichy/SwiftySound/pulls/62,https://api.github.com/repos/adamcichy/SwiftySound/issues/62,open,2021-08-25,2021-08-25,,c6ba68fc5e10b2fa200dca622b16566891160657
+vit1812,https://api.github.com/repos/adamcichy/SwiftySound/pulls/61,https://api.github.com/repos/adamcichy/SwiftySound/issues/61,open,2021-08-12,2021-08-12,,9e1b5fddd21079beebeaa8b7e41d49f7acee6f98
+kevinzhow,https://api.github.com/repos/adamcichy/SwiftySound/pulls/54,https://api.github.com/repos/adamcichy/SwiftySound/issues/54,open,2020-03-02,2020-04-04,,4a83b1b37a89e521adac0cdc343473e60c9233e1
+salmaanahmed,https://api.github.com/repos/adamcichy/SwiftySound/pulls/53,https://api.github.com/repos/adamcichy/SwiftySound/issues/53,open,2020-02-03,2020-05-25,,ec9a733a2b660a9e007b2ce662106e7c3ee2475b
+salmaanahmed,https://api.github.com/repos/adamcichy/SwiftySound/pulls/52,https://api.github.com/repos/adamcichy/SwiftySound/issues/52,open,2020-01-31,2020-05-25,,448ee93e5d37763abd0ca8deef4413c266d324de
+fassko,https://api.github.com/repos/adamcichy/SwiftySound/pulls/50,https://api.github.com/repos/adamcichy/SwiftySound/issues/50,closed,2019-10-02,2019-12-22,2019-12-22,f45a6dd287813f079ca2bd527ffd42114fc9003d
+emmavray,https://api.github.com/repos/adamcichy/SwiftySound/pulls/47,https://api.github.com/repos/adamcichy/SwiftySound/issues/47,closed,2019-06-14,2019-12-22,,1870ddc9abe801b7bdb6ddc56af42cd467e6e735
+fassko,https://api.github.com/repos/adamcichy/SwiftySound/pulls/46,https://api.github.com/repos/adamcichy/SwiftySound/issues/46,closed,2019-03-27,2019-04-28,2019-04-28,85c7cbc209eabfc0c83d160dae3da69963f7b011
+ladybunne,https://api.github.com/repos/adamcichy/SwiftySound/pulls/32,https://api.github.com/repos/adamcichy/SwiftySound/issues/32,closed,2018-03-01,2018-03-02,2018-03-02,d1c94c65c5349a2285f7d6b834fd2e8cfbb1b2b8
+rivera-ernesto,https://api.github.com/repos/adamcichy/SwiftySound/pulls/31,https://api.github.com/repos/adamcichy/SwiftySound/issues/31,closed,2018-02-16,2019-12-22,,9be2d4019b8368343a4e9653349ee9f77ce8034b
+rivera-ernesto,https://api.github.com/repos/adamcichy/SwiftySound/pulls/30,https://api.github.com/repos/adamcichy/SwiftySound/issues/30,closed,2018-02-16,2018-02-23,2018-02-22,2526d22381183541e76ca6ff5efbca22c9f1fb32
+piemonte,https://api.github.com/repos/adamcichy/SwiftySound/pulls/28,https://api.github.com/repos/adamcichy/SwiftySound/issues/28,closed,2018-02-02,2018-02-05,2018-02-05,75cbd9e67c18f208593772c2a78a19637b23ece8
+Jeehut,https://api.github.com/repos/adamcichy/SwiftySound/pulls/4,https://api.github.com/repos/adamcichy/SwiftySound/issues/4,closed,2017-03-21,2017-03-21,2017-03-21,935649222ba388ea1b2abc098a908e2f5c2b36ac
+naeemshaikh90,https://api.github.com/repos/adamcichy/SwiftySound/pulls/2,https://api.github.com/repos/adamcichy/SwiftySound/issues/2,closed,2017-03-21,2017-03-21,2017-03-21,7e1e3b30dbe0b7e205b618e37167e61d5a8564bc

@@ -1,0 +1,9 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+PradyumnaRout,https://api.github.com/repos/yannickl/Splitflap/pulls/25,https://api.github.com/repos/yannickl/Splitflap/issues/25,open,2023-10-06,2023-10-06,,650f7aa5ca4aacab44da007f404a87744ad57d82
+MaxZheleznyy,https://api.github.com/repos/yannickl/Splitflap/pulls/23,https://api.github.com/repos/yannickl/Splitflap/issues/23,open,2020-03-02,2020-03-02,,008028d8d2f4f305059f649cd0247f4827c4ca31
+twodayslate,https://api.github.com/repos/yannickl/Splitflap/pulls/21,https://api.github.com/repos/yannickl/Splitflap/issues/21,open,2020-02-10,2020-02-10,,c2d3ef63a25e567d47715fdddd2cb666e2154410
+phongleq,https://api.github.com/repos/yannickl/Splitflap/pulls/16,https://api.github.com/repos/yannickl/Splitflap/issues/16,closed,2019-09-27,2019-09-28,2019-09-28,04716937ebffcbd23c8e5080e0341c8978279edb
+dustinburge,https://api.github.com/repos/yannickl/Splitflap/pulls/14,https://api.github.com/repos/yannickl/Splitflap/issues/14,closed,2019-06-26,2019-06-26,,0d1785b1d8128f9511fb4207b0eecae733bef986
+wallowabk,https://api.github.com/repos/yannickl/Splitflap/pulls/13,https://api.github.com/repos/yannickl/Splitflap/issues/13,closed,2019-04-20,2019-04-25,2019-04-25,ab008b3a204fa76963ee845c4b85885a0618b1df
+mdmack,https://api.github.com/repos/yannickl/Splitflap/pulls/10,https://api.github.com/repos/yannickl/Splitflap/issues/10,closed,2018-11-20,2018-11-20,2018-11-20,bf43c33deb3b3a3a22ff81ff28f2e1f86b301d04
+deivuh,https://api.github.com/repos/yannickl/Splitflap/pulls/6,https://api.github.com/repos/yannickl/Splitflap/issues/6,closed,2016-09-23,2016-09-24,,0198a3662066403de725b84c098564ba281faa26

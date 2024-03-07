@@ -1,0 +1,6 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+victorwon,https://api.github.com/repos/yannickl/DynamicButton/pulls/22,https://api.github.com/repos/yannickl/DynamicButton/issues/22,closed,2018-10-23,2018-11-11,2018-11-11,8fea937c273c9ad18ddb2f8e2c273113d3b1409a
+franck-nadeau,https://api.github.com/repos/yannickl/DynamicButton/pulls/20,https://api.github.com/repos/yannickl/DynamicButton/issues/20,closed,2018-03-27,2018-08-21,2018-08-21,2f24360c995699ceba5b36e9024fdcebbbca2b79
+ksinghal,https://api.github.com/repos/yannickl/DynamicButton/pulls/10,https://api.github.com/repos/yannickl/DynamicButton/issues/10,closed,2016-09-23,2016-11-05,,8290a0d955da5ddbb03e26d46ff3a79fc9239e6c
+aasatt,https://api.github.com/repos/yannickl/DynamicButton/pulls/8,https://api.github.com/repos/yannickl/DynamicButton/issues/8,closed,2016-08-02,2016-08-02,2016-08-02,44ebe17a288ee08c9694d6c10db8417dcd7fa1b4
+aasatt,https://api.github.com/repos/yannickl/DynamicButton/pulls/7,https://api.github.com/repos/yannickl/DynamicButton/issues/7,closed,2016-07-27,2016-07-27,,751ef041e2668f76bcbd68e0764a7d6d5e4a048f

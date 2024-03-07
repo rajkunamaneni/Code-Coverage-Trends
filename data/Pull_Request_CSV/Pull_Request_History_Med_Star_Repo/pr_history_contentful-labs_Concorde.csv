@@ -1,0 +1,8 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+alkozin,https://api.github.com/repos/contentful-labs/Concorde/pulls/25,https://api.github.com/repos/contentful-labs/Concorde/issues/25,open,2022-02-08,2022-02-08,,65bc32dd03ebbaebdedb318921008248a8d786af
+felipecoe,https://api.github.com/repos/contentful-labs/Concorde/pulls/23,https://api.github.com/repos/contentful-labs/Concorde/issues/23,closed,2018-05-09,2018-05-11,2018-05-11,499bf2fd9ce5ba8be40d8ed43994eef8bc51a44c
+krze,https://api.github.com/repos/contentful-labs/Concorde/pulls/22,https://api.github.com/repos/contentful-labs/Concorde/issues/22,closed,2018-02-14,2018-02-14,,a1092fc034317207a73c1c01ce9397a8cbabcb19
+krze,https://api.github.com/repos/contentful-labs/Concorde/pulls/21,https://api.github.com/repos/contentful-labs/Concorde/issues/21,closed,2018-01-19,2018-01-30,2018-01-30,0ad7205f5067ac36f0812826b4ba01db1e4ba9cd
+hfossli,https://api.github.com/repos/contentful-labs/Concorde/pulls/16,https://api.github.com/repos/contentful-labs/Concorde/issues/16,closed,2016-05-20,2016-05-20,2016-05-20,be97eba9a9957bf707d7f8ec9322cc46710c59c8
+nmarisi,https://api.github.com/repos/contentful-labs/Concorde/pulls/14,https://api.github.com/repos/contentful-labs/Concorde/issues/14,closed,2016-01-25,2016-01-25,2016-01-25,ef0aabb3e945c0e4a115a0dd6ffff8dcc923ef78
+orkenstein,https://api.github.com/repos/contentful-labs/Concorde/pulls/11,https://api.github.com/repos/contentful-labs/Concorde/issues/11,closed,2015-10-28,2016-01-07,,028113e2ace7b4740518ce6feb0985eb1af0e10b

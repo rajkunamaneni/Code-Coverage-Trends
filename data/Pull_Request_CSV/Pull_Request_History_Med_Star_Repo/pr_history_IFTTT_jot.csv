@@ -1,0 +1,14 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+jamiepmullan,https://api.github.com/repos/IFTTT/jot/pulls/29,https://api.github.com/repos/IFTTT/jot/issues/29,open,2018-12-20,2023-10-11,,6d5eee17ac8ef029be66bd3df59c9fc02c72e818
+ldworkin,https://api.github.com/repos/IFTTT/jot/pulls/25,https://api.github.com/repos/IFTTT/jot/issues/25,closed,2017-06-06,2017-06-06,,f624d9ec72ae9754e38f24691db9f74927685e20
+NightlyNexus,https://api.github.com/repos/IFTTT/jot/pulls/24,https://api.github.com/repos/IFTTT/jot/issues/24,closed,2017-01-19,2017-03-21,,a6b861080b6deda4188032652f066355c92ef181
+tres,https://api.github.com/repos/IFTTT/jot/pulls/21,https://api.github.com/repos/IFTTT/jot/issues/21,open,2016-10-10,2023-10-11,,10b34056915d3bedf2d65bb41ccf82692482129a
+matthewmoss,https://api.github.com/repos/IFTTT/jot/pulls/16,https://api.github.com/repos/IFTTT/jot/issues/16,open,2016-06-22,2023-10-11,,fe4d5dc6c395872075da171d9a0196a17b8b30e3
+febeling,https://api.github.com/repos/IFTTT/jot/pulls/15,https://api.github.com/repos/IFTTT/jot/issues/15,closed,2016-06-07,2016-08-05,2016-08-05,2c457eccb240c3e66b70ef346d15c0ca4029450b
+waterzhang0423,https://api.github.com/repos/IFTTT/jot/pulls/14,https://api.github.com/repos/IFTTT/jot/issues/14,open,2015-12-19,2023-10-11,,245bb6fbc7f6d5f82ed372f924d73fbb73500588
+jeffreyjackson,https://api.github.com/repos/IFTTT/jot/pulls/11,https://api.github.com/repos/IFTTT/jot/issues/11,closed,2015-08-30,2015-08-31,,7a6a9f3193649a26e0581915301c70b1011f9bc6
+lauraskelton,https://api.github.com/repos/IFTTT/jot/pulls/10,https://api.github.com/repos/IFTTT/jot/issues/10,closed,2015-08-05,2015-08-05,2015-08-05,389529d002a16bf20e97b115bf281e7b166009cf
+CodeHuntIO,https://api.github.com/repos/IFTTT/jot/pulls/9,https://api.github.com/repos/IFTTT/jot/issues/9,closed,2015-08-02,2015-08-11,,7162543e1a2c845553fc2bf6b6bd34629a9a4b35
+MattSich,https://api.github.com/repos/IFTTT/jot/pulls/6,https://api.github.com/repos/IFTTT/jot/issues/6,closed,2015-07-28,2015-08-11,,f76c87cfcc6c81fc5bb57a063afb64fa85ba28a1
+adamjuhasz,https://api.github.com/repos/IFTTT/jot/pulls/4,https://api.github.com/repos/IFTTT/jot/issues/4,closed,2015-06-21,2015-06-21,2015-06-21,956886fbf43689bf975219f33ad4727efdd82e34
+remirobert,https://api.github.com/repos/IFTTT/jot/pulls/3,https://api.github.com/repos/IFTTT/jot/issues/3,closed,2015-06-03,2015-06-04,2015-06-04,cf281c024229a5a8f2225f853e2ba99f3b0a7f27

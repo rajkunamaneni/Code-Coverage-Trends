@@ -1,0 +1,6 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+onevcat,https://api.github.com/repos/onevcat/Hedwig/pulls/10,https://api.github.com/repos/onevcat/Hedwig/issues/10,closed,2017-06-03,2017-06-03,2017-06-03,17b7666a4e40b66ef2c30781340ea86350519e3e
+vi4m,https://api.github.com/repos/onevcat/Hedwig/pulls/6,https://api.github.com/repos/onevcat/Hedwig/issues/6,closed,2017-01-17,2017-02-21,2017-02-21,9b758877942034a15aa3dc6ca38b466d95f24c0b
+BasThomas,https://api.github.com/repos/onevcat/Hedwig/pulls/4,https://api.github.com/repos/onevcat/Hedwig/issues/4,closed,2017-01-16,2017-01-16,2017-01-16,fab32955c4e1a345dfc87512308abbd042001569
+Haroenv,https://api.github.com/repos/onevcat/Hedwig/pulls/3,https://api.github.com/repos/onevcat/Hedwig/issues/3,closed,2017-01-14,2017-01-15,2017-01-15,2cbb232e42cf036dedcbca9a3a0d7b83889bb7ca
+kylefrost,https://api.github.com/repos/onevcat/Hedwig/pulls/2,https://api.github.com/repos/onevcat/Hedwig/issues/2,closed,2017-01-13,2017-01-14,2017-01-14,1b8ab58bf6e823613d3cfd30d85fd2ddc15eb6b1

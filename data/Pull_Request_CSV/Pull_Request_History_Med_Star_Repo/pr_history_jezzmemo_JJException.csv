@@ -1,0 +1,8 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+superClown,https://api.github.com/repos/jezzmemo/JJException/pulls/112,https://api.github.com/repos/jezzmemo/JJException/issues/112,open,2021-09-27,2021-09-27,,e665e47c5bcb35c4f76e528bd39aab78f84475bb
+LuckyCat7848,https://api.github.com/repos/jezzmemo/JJException/pulls/85,https://api.github.com/repos/jezzmemo/JJException/issues/85,closed,2020-07-07,2021-04-27,,
+LuckyCat7848,https://api.github.com/repos/jezzmemo/JJException/pulls/84,https://api.github.com/repos/jezzmemo/JJException/issues/84,closed,2020-06-08,2020-06-15,,7c2620675f5662f42f96225c1a753db4f5077c43
+superClown,https://api.github.com/repos/jezzmemo/JJException/pulls/60,https://api.github.com/repos/jezzmemo/JJException/issues/60,closed,2019-03-26,2019-07-06,,a855d1f351fe55667409921e024203be0dd2a015
+superClown,https://api.github.com/repos/jezzmemo/JJException/pulls/59,https://api.github.com/repos/jezzmemo/JJException/issues/59,closed,2019-03-22,2019-03-26,,c686d3b60f13636233158fc8a82e0d886053cd61
+kealdishx,https://api.github.com/repos/jezzmemo/JJException/pulls/55,https://api.github.com/repos/jezzmemo/JJException/issues/55,closed,2019-02-26,2019-02-26,2019-02-26,ccc1d64a19586b7317e4b70f4af14968f23e5101
+misaka14,https://api.github.com/repos/jezzmemo/JJException/pulls/53,https://api.github.com/repos/jezzmemo/JJException/issues/53,open,2019-01-30,2019-02-16,,92f8340f9eeb1ea28c0505774e6c7866d760e204

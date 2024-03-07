@@ -1,0 +1,8 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+huangboju,https://api.github.com/repos/material-motion/material-motion-swift/pulls/125,https://api.github.com/repos/material-motion/material-motion-swift/issues/125,open,2020-02-04,2020-02-04,,
+huangboju,https://api.github.com/repos/material-motion/material-motion-swift/pulls/124,https://api.github.com/repos/material-motion/material-motion-swift/issues/124,closed,2020-01-19,2020-02-04,,9f9b5f6383d4ea1e93f3dafce161f76bed3bd6d4
+jverkoey,https://api.github.com/repos/material-motion/material-motion-swift/pulls/123,https://api.github.com/repos/material-motion/material-motion-swift/issues/123,closed,2017-10-26,2018-07-31,2017-10-31,fae8c59f53066e1d3fe6c5d39192e0c51303a656
+randcode-generator,https://api.github.com/repos/material-motion/material-motion-swift/pulls/109,https://api.github.com/repos/material-motion/material-motion-swift/issues/109,closed,2017-04-20,2017-04-20,,bdb13932a541c6ffe27cf4ff466edf50b339843f
+randcode-generator,https://api.github.com/repos/material-motion/material-motion-swift/pulls/107,https://api.github.com/repos/material-motion/material-motion-swift/issues/107,closed,2017-04-18,2017-04-18,2017-04-18,ab44321b3906998a72a3a6b544061441179331dd
+chuga,https://api.github.com/repos/material-motion/material-motion-swift/pulls/24,https://api.github.com/repos/material-motion/material-motion-swift/issues/24,closed,2017-01-13,2017-01-13,2017-01-13,d3651f4da18af8809963c0b5525a9459d73ccd6d
+chuga,https://api.github.com/repos/material-motion/material-motion-swift/pulls/23,https://api.github.com/repos/material-motion/material-motion-swift/issues/23,closed,2017-01-13,2017-01-13,2017-01-13,16e082537869579530327824c115ef0cb7b688da
