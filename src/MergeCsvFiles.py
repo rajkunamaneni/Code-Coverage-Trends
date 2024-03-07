@@ -18,6 +18,10 @@ def strip_timestamp(pop_csv_dict_of_df):
         if timestamp is not None:
             pop_csv_dict_of_df[idx]['Timestamp'] = timestamp.split('T', 1)[0]
 
+def split_on_occurence_char(pr_csv_filename_no_suffix, delimiter, position):
+    str_groups = pr_csv_filename_no_suffix.split(delimiter)
+    return '_'.join(str_groups[:position]), '_'.join(str_groups[position:])
+
 def combine_pr_with_pop_report(pr_history_csv_file_list, pr_file_prefix, pop_csv_dict_of_df):
     for pr_csv_file in pr_history_csv_file_list:
         try:
@@ -26,7 +30,17 @@ def combine_pr_with_pop_report(pr_history_csv_file_list, pr_file_prefix, pop_csv
                 pr_csv_filename = os.path.basename(pr_csv_file)
                 pr_csv_filename_no_prefix = pr_csv_filename.removeprefix('prs_per_day_')
                 pr_csv_filename_no_suffix = pr_csv_filename_no_prefix.removesuffix('.csv')
-                [username, repository] = pr_csv_filename_no_suffix.split('_')
+
+                underscore_count = pr_csv_filename_no_suffix.count('_')
+                [username, repository] = [None, None]
+
+                if underscore_count == 1:
+                    [username, repository] = pr_csv_filename_no_suffix.split('_')
+                elif underscore_count > 1:
+                    [username, repository] = split_on_occurence_char(pr_csv_filename_no_suffix, '_', 1)
+                    print(f'repo used bad naming practices: {username}/{repository}')
+                else:
+                    raise ValueError
 
                 pr_count_aligned_date_list = []
                 for idx, pop_date_commit_dict_inst in enumerate(pop_csv_dict_of_df):
@@ -39,7 +53,7 @@ def combine_pr_with_pop_report(pr_history_csv_file_list, pr_file_prefix, pop_csv
                                 pop_csv_dict_of_df[idx]['Pull Requests on Timestamp'] = pull_requests_pr_row
                                 break
         except ValueError:
-            print(f'repo used bad naming practices, skipping: {pr_csv_file}')
+            print(f'repo used invalid naming practices, skipping: {pr_csv_file}')
             pass
 
 
