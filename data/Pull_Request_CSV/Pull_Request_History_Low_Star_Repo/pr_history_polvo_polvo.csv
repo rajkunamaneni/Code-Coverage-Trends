@@ -1,0 +1,9 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+hems,https://api.github.com/repos/polvo/polvo/pulls/45,https://api.github.com/repos/polvo/polvo/issues/45,open,2014-07-30,2014-08-06,,ee5f3e2d95d99b74383f27f52621d4022bb7c65b
+hems,https://api.github.com/repos/polvo/polvo/pulls/42,https://api.github.com/repos/polvo/polvo/issues/42,closed,2014-04-10,2014-07-08,,98f3710cdd6b00d4ecbf53c870f34d388103f286
+jorgecid,https://api.github.com/repos/polvo/polvo/pulls/31,https://api.github.com/repos/polvo/polvo/issues/31,closed,2013-12-14,2014-06-13,2013-12-15,9751fd4f96ae1b12611f1ce2aa4cb33be1fa5483
+thiagofm,https://api.github.com/repos/polvo/polvo/pulls/27,https://api.github.com/repos/polvo/polvo/issues/27,closed,2013-10-01,2013-10-28,2013-10-28,5e8c07bbfb34e0beaee8b2acc930c6a1eab58015
+hems,https://api.github.com/repos/polvo/polvo/pulls/25,https://api.github.com/repos/polvo/polvo/issues/25,closed,2013-09-05,2014-07-07,,0f287c76a2001acadc9fe1bf57781845b3f663c5
+waffleio,https://api.github.com/repos/polvo/polvo/pulls/18,https://api.github.com/repos/polvo/polvo/issues/18,closed,2013-07-19,2013-07-19,2013-07-19,37a66f75ec0438732a4a8bba5655b8b77ee2e58b
+hems,https://api.github.com/repos/polvo/polvo/pulls/4,https://api.github.com/repos/polvo/polvo/issues/4,closed,2013-05-13,2014-06-15,2013-05-15,6236be591838dc8bf0c17da6b5796057fe9c36a6
+G3z,https://api.github.com/repos/polvo/polvo/pulls/3,https://api.github.com/repos/polvo/polvo/issues/3,closed,2013-04-12,2014-07-13,,0e952ffc48c93ad3a5247075680e65b8ef10682a

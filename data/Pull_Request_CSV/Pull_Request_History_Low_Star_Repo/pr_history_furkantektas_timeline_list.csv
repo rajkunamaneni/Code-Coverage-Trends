@@ -1,0 +1,8 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+stijn1989,https://api.github.com/repos/furkantektas/timeline_list/pulls/20,https://api.github.com/repos/furkantektas/timeline_list/issues/20,open,2022-07-13,2022-07-13,,a9a635ec989c3c8d2f6bb4d2942ae3dd93f46be9
+samramez,https://api.github.com/repos/furkantektas/timeline_list/pulls/17,https://api.github.com/repos/furkantektas/timeline_list/issues/17,closed,2021-06-17,2021-08-21,2021-08-21,502ee07043a8b612634accf356a0f3e059cb6633
+samramez,https://api.github.com/repos/furkantektas/timeline_list/pulls/16,https://api.github.com/repos/furkantektas/timeline_list/issues/16,closed,2021-05-25,2021-08-21,2021-08-21,502ee07043a8b612634accf356a0f3e059cb6633
+alexisenp,https://api.github.com/repos/furkantektas/timeline_list/pulls/15,https://api.github.com/repos/furkantektas/timeline_list/issues/15,open,2021-03-12,2021-04-05,,c049fc9a0e1868a432de7cb863c6465e9fe60656
+TercyoStorck,https://api.github.com/repos/furkantektas/timeline_list/pulls/10,https://api.github.com/repos/furkantektas/timeline_list/issues/10,closed,2020-03-03,2021-03-12,2021-03-12,02d997a224bae6ef0584fa14633b136708e729ff
+mjhansen3,https://api.github.com/repos/furkantektas/timeline_list/pulls/6,https://api.github.com/repos/furkantektas/timeline_list/issues/6,closed,2019-07-31,2019-07-31,2019-07-31,9ab8fff87a90753d337c5769a62d47d1c863eb88
+JJCLane,https://api.github.com/repos/furkantektas/timeline_list/pulls/1,https://api.github.com/repos/furkantektas/timeline_list/issues/1,closed,2019-03-11,2019-03-25,2019-03-25,ab00ac94eecc3e5250dd8b05bc90338e24186d05

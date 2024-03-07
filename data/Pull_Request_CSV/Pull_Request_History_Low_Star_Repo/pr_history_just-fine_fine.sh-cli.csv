@@ -1,0 +1,16 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/17,https://api.github.com/repos/just-fine/fine.sh-cli/issues/17,closed,2019-01-19,2019-01-19,2019-01-19,42b69308a4be9cc1c814d2f9c369be117ea4a006
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/15,https://api.github.com/repos/just-fine/fine.sh-cli/issues/15,closed,2019-01-16,2019-01-16,2019-01-16,55ce0fb2ad5434a6bb48c712b7ac5ebbbdcce50f
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/14,https://api.github.com/repos/just-fine/fine.sh-cli/issues/14,closed,2019-01-15,2019-01-16,2019-01-15,1954096b250d9cd66b8f630132fa8da45c952d57
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/12,https://api.github.com/repos/just-fine/fine.sh-cli/issues/12,closed,2019-01-14,2019-01-15,2019-01-14,8eff29dbcb6795fc63bfb4608aef42e0e0a44556
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/11,https://api.github.com/repos/just-fine/fine.sh-cli/issues/11,closed,2019-01-13,2019-01-13,2019-01-13,1af774eb57cffd28f5dc2ee8daf4f62ac6d307b6
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/10,https://api.github.com/repos/just-fine/fine.sh-cli/issues/10,closed,2019-01-12,2019-01-15,2019-01-12,f31fbd8e1a5ec0b609b55dc88afd6951e8a435ea
+fossabot,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/9,https://api.github.com/repos/just-fine/fine.sh-cli/issues/9,closed,2019-01-12,2019-01-14,,ea5e908174bacd527e8c392f12f6fa85dd054c7f
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/8,https://api.github.com/repos/just-fine/fine.sh-cli/issues/8,closed,2019-01-12,2019-01-12,2019-01-12,6178d51dc3b1bb7516ce5a593b36a032a1f8bb9a
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/7,https://api.github.com/repos/just-fine/fine.sh-cli/issues/7,closed,2019-01-10,2019-01-12,2019-01-10,9119d106ab20c654adde2ffd84dad34db7a3e546
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/6,https://api.github.com/repos/just-fine/fine.sh-cli/issues/6,closed,2019-01-08,2019-01-12,2019-01-10,0100bcab75f22b0d006b8cda747a34db205829f7
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/5,https://api.github.com/repos/just-fine/fine.sh-cli/issues/5,closed,2019-01-07,2019-01-08,2019-01-07,43dbe8df80144604510e7a90dbaa0b62541fd00f
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/4,https://api.github.com/repos/just-fine/fine.sh-cli/issues/4,closed,2019-01-07,2019-01-07,2019-01-07,9af23f60597ea2eaf925acca4c4cfaee586823d5
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/3,https://api.github.com/repos/just-fine/fine.sh-cli/issues/3,closed,2019-01-07,2019-01-07,2019-01-07,38971eb8331066159aa2b44f48dcbb42ad2e0589
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/2,https://api.github.com/repos/just-fine/fine.sh-cli/issues/2,closed,2019-01-04,2019-01-08,2019-01-04,ef2ccf1f2a877528728febc91d225e7d03d3c7f6
+unix,https://api.github.com/repos/just-fine/fine.sh-cli/pulls/1,https://api.github.com/repos/just-fine/fine.sh-cli/issues/1,closed,2019-01-04,2019-01-04,2019-01-04,3c1b0a24c30441cd8f3bb12768c4fd6471017c90

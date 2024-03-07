@@ -1,0 +1,5 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+jimeh,https://api.github.com/repos/abe33/spectacular/pulls/10,https://api.github.com/repos/abe33/spectacular/issues/10,closed,2013-08-13,2014-08-11,2013-08-20,f71b2c8dcb5a9fe5315835e4d15ae037e131da3e
+gsterndale,https://api.github.com/repos/abe33/spectacular/pulls/3,https://api.github.com/repos/abe33/spectacular/issues/3,closed,2013-07-23,2013-07-23,2013-07-23,0121a64cc24dcaca7171646d2c0ad11f1a59f13e
+pengwynn,https://api.github.com/repos/abe33/spectacular/pulls/2,https://api.github.com/repos/abe33/spectacular/issues/2,closed,2013-07-17,2013-07-18,2013-07-18,e2f23f443a6338a3cdf9db5a5863428689cc9d46
+dylanharrington,https://api.github.com/repos/abe33/spectacular/pulls/1,https://api.github.com/repos/abe33/spectacular/issues/1,closed,2013-07-17,2013-07-17,2013-07-17,07bfd79600e86b3fe5dcb4595dd964b41b63f4df

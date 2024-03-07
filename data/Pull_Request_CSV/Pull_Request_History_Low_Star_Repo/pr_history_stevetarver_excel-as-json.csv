@@ -1,0 +1,6 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+renatjf,https://api.github.com/repos/stevetarver/excel-as-json/pulls/21,https://api.github.com/repos/stevetarver/excel-as-json/issues/21,closed,2017-06-20,2018-06-15,,f03f960a9f297e1ca3f050897bb37814652f6fb3
+mrbatista,https://api.github.com/repos/stevetarver/excel-as-json/pulls/13,https://api.github.com/repos/stevetarver/excel-as-json/issues/13,closed,2017-01-30,2017-03-22,,c7cd128f582fb8da3a21754187e053b3236ce216
+binarymax,https://api.github.com/repos/stevetarver/excel-as-json/pulls/12,https://api.github.com/repos/stevetarver/excel-as-json/issues/12,closed,2017-01-21,2017-02-12,2017-02-05,05737550d1ebed59471d1e8a51f7e44aada0ba2e
+vote539,https://api.github.com/repos/stevetarver/excel-as-json/pulls/4,https://api.github.com/repos/stevetarver/excel-as-json/issues/4,open,2016-08-28,2016-08-29,,ce4424ff0daaaabf1aa75c7c7f67f15885fd1aaf
+Lxxyx,https://api.github.com/repos/stevetarver/excel-as-json/pulls/3,https://api.github.com/repos/stevetarver/excel-as-json/issues/3,closed,2016-06-23,2016-06-25,2016-06-25,0fb48e6d795d3a939eeb21c7e408b2f2551c681c

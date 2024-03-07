@@ -1,0 +1,8 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+PeterRock,https://api.github.com/repos/mycolorway/simple-uploader/pulls/18,https://api.github.com/repos/mycolorway/simple-uploader/issues/18,closed,2019-01-17,2019-01-17,,31023fdcd65fbf5873f9d058c369c6db3d4c8b52
+biallo,https://api.github.com/repos/mycolorway/simple-uploader/pulls/17,https://api.github.com/repos/mycolorway/simple-uploader/issues/17,closed,2018-06-29,2018-06-29,2018-06-29,69f951827e4952809cb65838cc916d7f32dcb495
+missuor,https://api.github.com/repos/mycolorway/simple-uploader/pulls/14,https://api.github.com/repos/mycolorway/simple-uploader/issues/14,open,2017-03-18,2017-03-18,,411d2357b7c106feb7ff66abbe3a5cd972be045e
+Jayin,https://api.github.com/repos/mycolorway/simple-uploader/pulls/11,https://api.github.com/repos/mycolorway/simple-uploader/issues/11,closed,2016-09-23,2022-10-19,,6e47cbf647e1bc782b34ff1485d15a7a9862e818
+FrankFang,https://api.github.com/repos/mycolorway/simple-uploader/pulls/8,https://api.github.com/repos/mycolorway/simple-uploader/issues/8,closed,2016-06-23,2016-08-01,2016-08-01,561ba12b7207f5f6917b317b77ecbf7d90af3473
+billyct,https://api.github.com/repos/mycolorway/simple-uploader/pulls/5,https://api.github.com/repos/mycolorway/simple-uploader/issues/5,closed,2016-02-20,2016-02-21,2016-02-21,ec15239012e747a797dd65072149078c6fc05322
+pakey,https://api.github.com/repos/mycolorway/simple-uploader/pulls/2,https://api.github.com/repos/mycolorway/simple-uploader/issues/2,closed,2014-09-15,2014-09-15,,6cb5154811883d4d877f2649660790fae634b8b1

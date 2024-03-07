@@ -1,0 +1,3 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+the-best-is-best,https://api.github.com/repos/salvadordeveloper/flutter-crypto-app/pulls/17,https://api.github.com/repos/salvadordeveloper/flutter-crypto-app/issues/17,closed,2022-10-01,2022-10-01,,2042bad5722029f8c1afcb16f4653088ad54da20
+anshmishra010,https://api.github.com/repos/salvadordeveloper/flutter-crypto-app/pulls/3,https://api.github.com/repos/salvadordeveloper/flutter-crypto-app/issues/3,closed,2021-06-03,2021-06-03,2021-06-03,230ed32089178652c81a8c60a4d2f239a5a9bd05

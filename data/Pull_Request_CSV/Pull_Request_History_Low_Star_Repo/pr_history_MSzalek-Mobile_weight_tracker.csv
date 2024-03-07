@@ -1,0 +1,12 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+ayush1612,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/pulls/41,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/issues/41,open,2020-10-23,2020-10-23,,3d6fcec0f5606f724d0ff198992ec40ea228b77a
+MarcinusX,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/pulls/32,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/issues/32,closed,2018-08-29,2018-08-29,2018-08-29,1b66d1100cc496928d72d03d851f0162226cad33
+MarcinusX,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/pulls/31,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/issues/31,closed,2018-08-24,2018-10-16,,70f56478a5cb11ae2a68a9523d078bbb17b87767
+MarcinusX,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/pulls/19,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/issues/19,closed,2017-12-26,2017-12-26,2017-12-26,1d5d87d97c4ea8efbc28fe8ea0a459f57d77f1c3
+MarcinusX,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/pulls/18,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/issues/18,closed,2017-12-21,2017-12-21,2017-12-21,8974a5ccccbc2d52d55bf81c38adc7ddb1da449e
+MarcinusX,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/pulls/17,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/issues/17,closed,2017-12-20,2017-12-21,2017-12-21,092e2938f8a646bcb0c92b093d21f56aa0dc5d2d
+MarcinusX,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/pulls/13,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/issues/13,closed,2017-12-02,2017-12-02,2017-12-02,16a13806b285964bf92e8e510e674c056cc842bb
+MarcinusX,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/pulls/12,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/issues/12,closed,2017-12-02,2017-12-02,2017-12-02,6d10bbadb44f747b028b5c36007bb83638d9e31b
+MarcinusX,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/pulls/9,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/issues/9,closed,2017-11-26,2017-11-26,2017-11-26,c1cf89130e6c016a1cae87001efb36794ef7c262
+MarcinusX,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/pulls/8,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/issues/8,closed,2017-11-22,2017-11-22,2017-11-22,1f00ecfb3f4cee1613c9c66de6ee04314572fdeb
+MarcinusX,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/pulls/7,https://api.github.com/repos/MSzalek-Mobile/weight_tracker/issues/7,closed,2017-11-22,2017-11-22,2017-11-22,77c4853db371f0280ab0495708d53e3e18d8cc15

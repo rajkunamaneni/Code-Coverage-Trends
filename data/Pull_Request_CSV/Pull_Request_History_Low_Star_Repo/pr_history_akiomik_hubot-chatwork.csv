@@ -1,0 +1,12 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+kaibadash,https://api.github.com/repos/akiomik/hubot-chatwork/pulls/13,https://api.github.com/repos/akiomik/hubot-chatwork/issues/13,closed,2017-04-22,2017-04-22,2017-04-22,a7d4a8bef69d54fc17922e02b1cbc095d053091d
+kaibadash,https://api.github.com/repos/akiomik/hubot-chatwork/pulls/12,https://api.github.com/repos/akiomik/hubot-chatwork/issues/12,closed,2017-04-22,2017-04-22,2017-04-22,ae772ef8728856ced2cd1396752d1a9921359d4b
+masanorythm,https://api.github.com/repos/akiomik/hubot-chatwork/pulls/11,https://api.github.com/repos/akiomik/hubot-chatwork/issues/11,closed,2017-01-27,2017-04-22,2017-04-22,41e794f71e6d00043ed2f81787688b83de2b9196
+shiena,https://api.github.com/repos/akiomik/hubot-chatwork/pulls/10,https://api.github.com/repos/akiomik/hubot-chatwork/issues/10,closed,2016-06-30,2017-09-06,2017-04-22,76bff98d44dcb55728caf335ff2c043d9978dba7
+shiena,https://api.github.com/repos/akiomik/hubot-chatwork/pulls/9,https://api.github.com/repos/akiomik/hubot-chatwork/issues/9,closed,2016-05-10,2017-09-06,2017-04-22,6cd57441a896857d2012845e2cdfafb2c8f181df
+hkurosawa,https://api.github.com/repos/akiomik/hubot-chatwork/pulls/8,https://api.github.com/repos/akiomik/hubot-chatwork/issues/8,closed,2016-03-19,2017-05-01,,0ea6ede7b51e4c89cce96467038e563e616511ee
+c3-hoge-fuga-piyo,https://api.github.com/repos/akiomik/hubot-chatwork/pulls/5,https://api.github.com/repos/akiomik/hubot-chatwork/issues/5,closed,2015-02-17,2016-04-25,,ecc8ebd52b8830919966123dc7d2b15196522c55
+kakikubo,https://api.github.com/repos/akiomik/hubot-chatwork/pulls/4,https://api.github.com/repos/akiomik/hubot-chatwork/issues/4,closed,2015-02-11,2017-04-22,,fa6064eedc7db9f3cb4227d57363c3379cf98f39
+kyo-ago,https://api.github.com/repos/akiomik/hubot-chatwork/pulls/3,https://api.github.com/repos/akiomik/hubot-chatwork/issues/3,closed,2014-12-04,2014-12-05,2014-12-05,6a00a0d823ddb8ef3302b53a2875ba9d31bb82bb
+ishida,https://api.github.com/repos/akiomik/hubot-chatwork/pulls/2,https://api.github.com/repos/akiomik/hubot-chatwork/issues/2,closed,2014-11-28,2014-12-01,2014-12-01,ab935a69c9455b560c6a2f35b3a6a97829b17723
+bitdeli-chef,https://api.github.com/repos/akiomik/hubot-chatwork/pulls/1,https://api.github.com/repos/akiomik/hubot-chatwork/issues/1,closed,2013-12-09,2014-07-05,,c339d688f91a9942589c096880351f852dd80b68

@@ -1,0 +1,6 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+rumblesan,https://api.github.com/repos/russellmcc/node-osc-min/pulls/17,https://api.github.com/repos/russellmcc/node-osc-min/issues/17,closed,2019-11-21,2019-11-23,2019-11-23,4769e61aa657b5c5a6c0ed94c9788ad531c1a0a0
+russellmcc,https://api.github.com/repos/russellmcc/node-osc-min/pulls/13,https://api.github.com/repos/russellmcc/node-osc-min/issues/13,closed,2016-01-07,2016-01-07,2016-01-07,7ddce7b8f17ee511fc793749ce48dded18d2cc78
+crucialfelix,https://api.github.com/repos/russellmcc/node-osc-min/pulls/12,https://api.github.com/repos/russellmcc/node-osc-min/issues/12,closed,2015-12-24,2016-01-07,2016-01-07,3538650de6a1b675786880e796808989bda53745
+mohayonao,https://api.github.com/repos/russellmcc/node-osc-min/pulls/9,https://api.github.com/repos/russellmcc/node-osc-min/issues/9,closed,2014-10-16,2014-10-17,2014-10-17,8ed5e07160444ec03a1625ace3f74e4b98cb04b3
+MylesBorins,https://api.github.com/repos/russellmcc/node-osc-min/pulls/3,https://api.github.com/repos/russellmcc/node-osc-min/issues/3,closed,2012-04-11,2012-04-11,2012-04-11,62bce58b4e582549db54bd07f05ab38e7186aa21

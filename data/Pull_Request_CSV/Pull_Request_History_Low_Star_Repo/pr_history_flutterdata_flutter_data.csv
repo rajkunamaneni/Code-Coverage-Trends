@@ -1,0 +1,12 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+AbgarSim,https://api.github.com/repos/flutterdata/flutter_data/pulls/260,https://api.github.com/repos/flutterdata/flutter_data/issues/260,closed,2024-01-30,2024-02-10,2024-02-10,b2b42de52a228f8db08123eb97e34d3a82d139b4
+mwcbrent,https://api.github.com/repos/flutterdata/flutter_data/pulls/244,https://api.github.com/repos/flutterdata/flutter_data/issues/244,closed,2023-09-15,2023-09-15,,8bf553fd2f2d4061ad0b0194c097a697ad1f4d67
+ariejan,https://api.github.com/repos/flutterdata/flutter_data/pulls/197,https://api.github.com/repos/flutterdata/flutter_data/issues/197,closed,2023-01-03,2023-01-21,2023-01-21,7fb29172cee7f8100528471442a370a85901d283
+maherjaafar,https://api.github.com/repos/flutterdata/flutter_data/pulls/186,https://api.github.com/repos/flutterdata/flutter_data/issues/186,closed,2022-11-25,2022-11-28,,b2deb69caacc742facefb580ea9b99a3c96cc184
+Skycoder42,https://api.github.com/repos/flutterdata/flutter_data/pulls/152,https://api.github.com/repos/flutterdata/flutter_data/issues/152,closed,2022-03-31,2022-04-04,2022-04-04,fddeff7c9616b0e05b87884815ce3ebcf881e835
+Skycoder42,https://api.github.com/repos/flutterdata/flutter_data/pulls/150,https://api.github.com/repos/flutterdata/flutter_data/issues/150,closed,2022-03-23,2022-03-31,2022-03-24,b4355548c348e86edb1cbef965db97102da0227a
+huang12zheng,https://api.github.com/repos/flutterdata/flutter_data/pulls/129,https://api.github.com/repos/flutterdata/flutter_data/issues/129,closed,2022-01-12,2022-01-23,,f67667ca9bdd0e6e705a510373abfbd5a81bf2ce
+andreacioni,https://api.github.com/repos/flutterdata/flutter_data/pulls/80,https://api.github.com/repos/flutterdata/flutter_data/issues/80,closed,2020-11-15,2021-03-11,2021-03-11,9ee55f31cca256ef895d8f4c342033750e8d2674
+rubgithub,https://api.github.com/repos/flutterdata/flutter_data/pulls/64,https://api.github.com/repos/flutterdata/flutter_data/issues/64,closed,2020-09-18,2021-03-12,2021-03-12,eb80cb5972ebf968909a24ff2c2cc9b59868f3a9
+frank06,https://api.github.com/repos/flutterdata/flutter_data/pulls/47,https://api.github.com/repos/flutterdata/flutter_data/issues/47,closed,2020-07-15,2020-07-24,2020-07-24,f6239fb17840df35d5f5c69877f0cc14a4d82e4b
+f3ath,https://api.github.com/repos/flutterdata/flutter_data/pulls/34,https://api.github.com/repos/flutterdata/flutter_data/issues/34,closed,2020-06-05,2020-06-06,2020-06-06,46f047334234548785660df7a529258c1fc5d922

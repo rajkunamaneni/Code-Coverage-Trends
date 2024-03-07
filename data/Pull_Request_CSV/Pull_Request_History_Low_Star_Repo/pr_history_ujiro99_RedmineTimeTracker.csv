@@ -1,0 +1,6 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+chechu,https://api.github.com/repos/ujiro99/RedmineTimeTracker/pulls/14,https://api.github.com/repos/ujiro99/RedmineTimeTracker/issues/14,closed,2015-12-01,2015-12-05,2015-12-05,08dbe056b303d7ae74c9db560e5a1747bca5b69e
+crzytrane,https://api.github.com/repos/ujiro99/RedmineTimeTracker/pulls/12,https://api.github.com/repos/ujiro99/RedmineTimeTracker/issues/12,closed,2015-11-13,2015-11-28,2015-11-28,65c1bf6f17d7f73f4685691d4b99bb71ebf9de7d
+uro,https://api.github.com/repos/ujiro99/RedmineTimeTracker/pulls/9,https://api.github.com/repos/ujiro99/RedmineTimeTracker/issues/9,closed,2015-01-16,2015-10-07,2015-09-21,52240a4b1ec318bd399d3f2ed1041e9d2ed7a5c0
+mabako,https://api.github.com/repos/ujiro99/RedmineTimeTracker/pulls/7,https://api.github.com/repos/ujiro99/RedmineTimeTracker/issues/7,closed,2014-09-03,2015-10-05,2015-10-05,a4baf73a94f4d971196b6c94dd25d24474e92347
+uro,https://api.github.com/repos/ujiro99/RedmineTimeTracker/pulls/1,https://api.github.com/repos/ujiro99/RedmineTimeTracker/issues/1,closed,2014-03-20,2014-07-12,2014-03-23,eeaeb92f6eee4c8d720bbf370042d42778866e23

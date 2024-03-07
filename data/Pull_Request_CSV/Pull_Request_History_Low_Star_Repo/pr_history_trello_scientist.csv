@@ -1,0 +1,8 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+dpatti,https://api.github.com/repos/trello/scientist/pulls/9,https://api.github.com/repos/trello/scientist/issues/9,closed,2016-05-19,2016-05-19,2016-05-19,6e5958a9a4b64784dd491ffbfff78fd3fdad3b4a
+dpatti,https://api.github.com/repos/trello/scientist/pulls/8,https://api.github.com/repos/trello/scientist/issues/8,closed,2016-05-19,2016-05-19,2016-05-19,4914405a50119f578de6edc7ae70523ce59e9f5b
+dpatti,https://api.github.com/repos/trello/scientist/pulls/7,https://api.github.com/repos/trello/scientist/issues/7,closed,2016-05-19,2016-05-19,2016-05-19,2396289d22d25c3c3884ed3cbc1cc347aca2e609
+raychouio,https://api.github.com/repos/trello/scientist/pulls/5,https://api.github.com/repos/trello/scientist/issues/5,closed,2016-03-02,2016-03-02,2016-03-02,4afe52ef3de3b2820109431571167afb765044bd
+dpatti,https://api.github.com/repos/trello/scientist/pulls/4,https://api.github.com/repos/trello/scientist/issues/4,closed,2016-01-25,2016-05-19,2016-05-19,934fe6a097f2b45bdecd8ffd5bbe659c70b57d66
+DavidTPate,https://api.github.com/repos/trello/scientist/pulls/2,https://api.github.com/repos/trello/scientist/issues/2,closed,2016-01-21,2016-05-19,,661eda71b49a8cf23aa9f2bdb936639529cb8f9a
+DavidTPate,https://api.github.com/repos/trello/scientist/pulls/1,https://api.github.com/repos/trello/scientist/issues/1,closed,2016-01-21,2016-01-21,2016-01-21,833adc40d3914c68b001bd071d44109b24b246bc

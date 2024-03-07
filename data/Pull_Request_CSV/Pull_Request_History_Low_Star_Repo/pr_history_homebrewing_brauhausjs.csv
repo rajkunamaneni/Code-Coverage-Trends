@@ -1,0 +1,3 @@
+user,url,issue_url,state,created_at,updated_at,merged_at,merge_commit_sha
+chrismytton,https://api.github.com/repos/homebrewing/brauhausjs/pulls/4,https://api.github.com/repos/homebrewing/brauhausjs/issues/4,closed,2013-12-18,2014-06-27,2013-12-19,892d86b6277ea71d62d965be5da971e7de8b323a
+jonpacker,https://api.github.com/repos/homebrewing/brauhausjs/pulls/1,https://api.github.com/repos/homebrewing/brauhausjs/issues/1,closed,2013-04-20,2014-06-18,2013-04-21,f40123a5d3c444ec53af6f3ff9d680feb8b80eb7
