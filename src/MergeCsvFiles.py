@@ -88,8 +88,8 @@ def merge_csv_pop_report(pop_report_csv_path, pr_history_csv_path, pop_file_suff
             write_to_csv(pop_report_csv_file, pop_csv_dict_of_df, pop_report_csv_path, new_prefix)
 
 if __name__ == "__main__":
-    pop_report_csv_path = r'C:\Users\lenovoi7\Documents\GitHub\GitHub-Testing-Trends\data\Popularity_Reports_Low_Star'
-    pr_history_csv_path = r'C:\Users\lenovoi7\Documents\GitHub\GitHub-Testing-Trends\data\Pull_Request_CSV\Pull_Request_History_Low_Star_Repo'
+    pop_report_csv_path = r'C:\Users\lenovoi7\Documents\GitHub\GitHub-Testing-Trends\data\Popularity_Reports_High_Star'
+    pr_history_csv_path = r'C:\Users\lenovoi7\Documents\GitHub\GitHub-Testing-Trends\data\Pull_Request_CSV\Pull_Request_History_High_Star_Repo'
     pop_file_suffix = r'Report'
     pr_file_prefix = r'prs_per_day_'
 
