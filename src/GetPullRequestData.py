@@ -21,7 +21,7 @@ GITHUB_AUTH_HEADER = {
     'User-Agent': user_agent_desktop
 }
 ERR_WAIT_TIME = 30
-TIMEOUT_AFTER = 10
+API_CALL_WAIT_TIME = 1
 
 def transpose_page(page_pr):
     return list(map(list, zip(*page_pr)))
@@ -50,11 +50,10 @@ def write_df_data_to_csv(dataframe, csv_filename):
 def _get_from_page(session, next_page_url):
     while True:
         try:
-            next_page_hold = session.get(next_page_url, headers=GITHUB_AUTH_HEADER, timeout=TIMEOUT_AFTER)
+            next_page_hold = session.get(next_page_url, headers=GITHUB_AUTH_HEADER)
             return next_page_hold
         except (requests.ConnectionError, NewConnectionError, requests.exceptions.ChunkedEncodingError,
-                requests.exceptions.ContentDecodingError, requests.exceptions.ConnectionError,
-                requests.exceptions.ReadTimeout, requests.ReadTimeout) as e:
+                requests.exceptions.ContentDecodingError, requests.exceptions.ConnectionError) as e:
             print(f"Waiting for connection, sleep: {ERR_WAIT_TIME}, error: {e}")
             time.sleep(ERR_WAIT_TIME)
             pass
@@ -64,8 +63,7 @@ def _get_next_page(page):
         try:
             return page if page.headers.get('link') is not None else None
         except (requests.ConnectionError, NewConnectionError, requests.exceptions.ChunkedEncodingError,
-                requests.exceptions.ContentDecodingError, requests.exceptions.ConnectionError,
-                requests.exceptions.ReadTimeout, requests.ReadTimeout) as e:
+                requests.exceptions.ContentDecodingError, requests.exceptions.ConnectionError) as e:
             print(f"Waiting for connection, sleep: {ERR_WAIT_TIME}, error: {e}")
             time.sleep(ERR_WAIT_TIME)
             pass
