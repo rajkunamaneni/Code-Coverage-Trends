@@ -1,9 +1,9 @@
 import pandas as pd
 
 # Assuming the data is stored in a CSV file named 'data.csv'
-data = pd.read_csv('MediumMar4Report.csv')
+# data = pd.read_csv('MediumMar4Report.csv')
 # refinedRepoHighStars_612.csv
-data = pd.read_csv('../data/refinedRepoLowStars_119.csv')
+data = pd.read_csv('../data/Refined_Repo_CSV/refinedRepoHighStars_612.csv')
 
 # Count the number of unique repositories
 unique_repositories = data['repo_name'].nunique()
