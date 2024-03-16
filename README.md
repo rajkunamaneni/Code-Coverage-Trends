@@ -13,6 +13,12 @@ We're exploring these key questions:
 
 Our research builds on previous studies that have looked at factors contributing to a project's popularity, but we're adding a new angle by focusing on code coverage. We believe that understanding this relationship can help developers improve their projects and attract more users and contributors.
 
+### Findings and Future Research
+
+Results show a significant correlation between code coverage and project popularity, indicating that popular projects tend to have better code coverage. However, the link between high code coverage and high project popularity is weaker, suggesting other factors also influence a project's appeal. Introducing new features with substantial code coverage positively impacts project popularity.
+
+Acknowledging limitations such as using pull requests as a proxy for new feature introductions, we suggest future research directions including qualitative studies on developer perspectives and a broader analysis across different projects and platforms. While high code coverage correlates with increased project visibility on GitHub, other factors also influence popularity, highlighting the need for a comprehensive understanding of what drives project appeal.
+
 ### Repository Structure
 ```
 src/: Contains Python scripts designed for extracting data from GitHub and utilizing tools like CodeCov and CoverAll.
