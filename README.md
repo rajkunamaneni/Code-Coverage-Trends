@@ -15,6 +15,8 @@ Our research builds on previous studies that have looked at factors contributing
 
 ### Methodology
 
+![Diagram](https://github.com/rajkunamaneni/Code-Coverage-Trends/blob/main/data/Pipeline%20of%20Method.png)
+
 The research methodology encompasses a comprehensive analysis of GitHub repositories, employing statistical tools to examine the correlation between code coverage metrics and project popularity. We scrutinize code coverage trends over time, juxtaposed with the project's popularity indicators such as stars, forks, and pull requests. This approach enables us to identify patterns and deduce the influence of code coverage on a project's appeal within the GitHub community.
 
 ### Findings, Limitations, and Future Research
