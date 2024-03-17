@@ -15,8 +15,6 @@ Our research builds on previous studies that have looked at factors contributing
 
 ### Methodology
 
-![Diagram](https://github.com/rajkunamaneni/Code-Coverage-Trends/blob/main/data/Pipeline%20of%20Method.png)
-
 The research methodology encompasses a comprehensive analysis of GitHub repositories, employing statistical tools to examine the correlation between code coverage metrics and project popularity. We scrutinize code coverage trends over time, juxtaposed with the project's popularity indicators such as stars, forks, and pull requests. This approach enables us to identify patterns and deduce the influence of code coverage on a project's appeal within the GitHub community.
 
 ### Findings, Limitations, and Future Research
@@ -26,12 +24,17 @@ Results show a significant correlation between code coverage and project popular
 While this study marks a significant stride in understanding the relationship between code coverage and project popularity, it acknowledges certain limitations, such as the reliance on pull requests as proxies for feature introductions. Acknowledging limitations such as using pull requests as a proxy for new feature introductions, we suggest future research directions including qualitative studies on developer perspectives and a broader analysis across different projects and platforms. While high code coverage correlates with increased project visibility on GitHub, other factors also influence popularity, highlighting the need for a comprehensive understanding of what drives project appeal.
 
 ### Repository Structure
-```
-src/: Contains Python scripts designed for extracting data from GitHub and utilizing tools like CodeCov and CoverAll.
-data/: Houses information pertaining to Popular Repositories.
-```
+
+This repository is organized as follows:
+
+* ```src/```: Contains Python scripts designed for extracting data from GitHub and utilizing tools like CodeCov and CoverAll.
+* ```data/```: Houses information about Popular Repositories.
+
+You can find the CSV containing the raw data in the ```data/``` directory. In the CSV files, each row represents a repository snapshot. It gives a comprehensive view of code quality metrics and popularity indicators. Columns include Username, Repository, Percentage, Hash/commit identifier, Timestamp date, Language, Daily Star Count, Total Star, Additions, Deletions, Pull Requests on Timestamp, Contributions, and Total Pull Requests Before Timestamp. This format of the datasets was used for analyzing code quality and popularity trends on GitHub.
 
 ### Clone the Repository:
+
+To replicate our analysis or obtain the data, you can clone this repository using the following commands:
 
 ```bash
 git clone https://github.com/rajkunamaneni/Code-Coverage-Trends.git
