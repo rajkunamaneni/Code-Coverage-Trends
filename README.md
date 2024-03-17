@@ -7,9 +7,9 @@ This project examines the link between the popularity of GitHub projects and the
 
 We're exploring these key questions:
 
-* RQ 1: Do popular projects have better code coverage? Does a project's code coverage increase or decrease as it becomes more popular?
-* RQ 2: Is there a strong connection between high code coverage and project popularity on GitHub?
-* RQ 3: How does adding new features with varying levels of code coverage affect a project's popularity?
+* **RQ 1**: Do popular projects have better code coverage? Does a project's code coverage increase or decrease as it becomes more popular?
+* **RQ 2**: Is there a strong connection between high code coverage and project popularity on GitHub?
+* **RQ 3**: How does adding new features with varying levels of code coverage affect a project's popularity?
 
 Our research builds on previous studies that have looked at factors contributing to a project's popularity, but we're adding a new angle by focusing on code coverage. We believe that understanding this relationship can help developers improve their projects and attract more users and contributors.
 
