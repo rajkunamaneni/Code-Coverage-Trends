@@ -34,7 +34,7 @@ This repository is organized as follows:
 
 You can find the CSVs containing the raw data in the ```data/``` directory. In the CSV files, each row represents a repository snapshot. It gives a comprehensive view of code quality metrics and popularity indicators. Columns include Username, Repository, Percentage, Hash/commit identifier, Timestamp date, Language, Daily Star Count, Total Star, Additions, Deletions, Pull Requests on Timestamp, Contributions, and Total Pull Requests Before Timestamp. This format of the datasets was used for analyzing code quality and popularity trends on GitHub.
 
-### Clone the Repository:
+### Cloning the Repository
 
 To replicate our analysis or obtain the data, you can clone this repository using the following commands:
 
