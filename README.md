@@ -5,7 +5,7 @@ GitHub, as a hub of software collaboration and innovation, hosts countless repos
 
 This project examines the link between the popularity of GitHub projects and their code quality, focusing on code coverage. It is a measure of how much of a project's code is tested, which can indicate its quality. We're interested in whether popular projects on GitHub also have high code coverage, and if improving code coverage can make a project more popular.
 
-We're exploring these key questions:
+We explore the following key Research Questions:
 
 * **RQ 1**: Do popular projects have better code coverage? Does a project's code coverage increase or decrease as it becomes more popular?
 * **RQ 2**: Is there a strong connection between high code coverage and project popularity on GitHub?
